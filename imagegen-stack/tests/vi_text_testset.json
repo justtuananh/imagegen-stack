@@ -1,0 +1,194 @@
+{
+  "name": "Bộ test render chữ tiếng Việt",
+  "purpose": "Đo tỉ lệ model sinh đúng chữ Việt có dấu. Quyết định dùng W2A (model tự viết) hay W2B (ghép chữ).",
+  "created": "2026-08-20",
+  "encoding": "Tất cả chuỗi đã chuẩn hoá NFC. So sánh kết quả cũng phải NFC.",
+  "scoring": {
+    "method": "Chấm mắt từng ảnh, hoặc OCR nếu có engine hỗ trợ tiếng Việt.",
+    "per_case": "dung | sai_dau | sai_chu | khong_doc_duoc",
+    "metric": "ty_le_dung = so_case_dung / tong_case, báo cáo riêng theo từng tầng"
+  },
+  "prompt_template": "a clean minimal poster on a plain background, the text \"{text}\" written clearly in large bold letters, centered, high resolution, sharp typography",
+  "cases": [
+    {
+      "id": "T1-01",
+      "tier": 1,
+      "text": "à á ả ã ạ",
+      "note": "đủ 5 thanh trên chữ a"
+    },
+    {
+      "id": "T1-02",
+      "tier": 1,
+      "text": "è é ẻ ẽ ẹ",
+      "note": "đủ 5 thanh trên chữ e"
+    },
+    {
+      "id": "T1-03",
+      "tier": 1,
+      "text": "ì í ỉ ĩ ị",
+      "note": "dấu trên i — dễ chồng lên chấm của i"
+    },
+    {
+      "id": "T1-04",
+      "tier": 1,
+      "text": "ò ó ỏ õ ọ",
+      "note": "đủ 5 thanh trên chữ o"
+    },
+    {
+      "id": "T1-05",
+      "tier": 1,
+      "text": "ù ú ủ ũ ụ",
+      "note": "đủ 5 thanh trên chữ u"
+    },
+    {
+      "id": "T2-01",
+      "tier": 2,
+      "text": "ă",
+      "note": "á có mũ ngược — không có trong tiếng Anh/Trung"
+    },
+    {
+      "id": "T2-02",
+      "tier": 2,
+      "text": "â",
+      "note": "a có mũ"
+    },
+    {
+      "id": "T2-03",
+      "tier": 2,
+      "text": "ê",
+      "note": "e có mũ"
+    },
+    {
+      "id": "T2-04",
+      "tier": 2,
+      "text": "ô",
+      "note": "o có mũ"
+    },
+    {
+      "id": "T2-05",
+      "tier": 2,
+      "text": "ơ",
+      "note": "o có râu — ký tự đặc trưng nhất của tiếng Việt"
+    },
+    {
+      "id": "T2-06",
+      "tier": 2,
+      "text": "ư",
+      "note": "u có râu"
+    },
+    {
+      "id": "T2-07",
+      "tier": 2,
+      "text": "đ",
+      "note": "d gạch ngang — hay bị nhầm thành d hoặc ð"
+    },
+    {
+      "id": "T3-01",
+      "tier": 3,
+      "text": "ế",
+      "note": "ê + sắc — hai dấu chồng nhau"
+    },
+    {
+      "id": "T3-02",
+      "tier": 3,
+      "text": "ộ",
+      "note": "ô + nặng — mũ trên, chấm dưới"
+    },
+    {
+      "id": "T3-03",
+      "tier": 3,
+      "text": "ữ",
+      "note": "ư + ngã — râu + ngã"
+    },
+    {
+      "id": "T3-04",
+      "tier": 3,
+      "text": "ợ",
+      "note": "ơ + nặng — râu + chấm dưới"
+    },
+    {
+      "id": "T3-05",
+      "tier": 3,
+      "text": "ằ",
+      "note": "ă + huyền"
+    },
+    {
+      "id": "T3-06",
+      "tier": 3,
+      "text": "ẵ",
+      "note": "ă + ngã — hai dấu cong chồng nhau"
+    },
+    {
+      "id": "T3-07",
+      "tier": 3,
+      "text": "ỡ",
+      "note": "ơ + ngã"
+    },
+    {
+      "id": "T3-08",
+      "tier": 3,
+      "text": "ự",
+      "note": "ư + nặng"
+    },
+    {
+      "id": "T4-01",
+      "tier": 4,
+      "text": "Khuyến mãi 50%",
+      "note": "banner giảm giá — chữ + số + ký hiệu"
+    },
+    {
+      "id": "T4-02",
+      "tier": 4,
+      "text": "Tuyển dụng kỹ sư phần mềm",
+      "note": "tin tuyển dụng — nhiều dấu"
+    },
+    {
+      "id": "T4-03",
+      "tier": 4,
+      "text": "Phở bò Hà Nội",
+      "note": "ẩm thực — ở + ò"
+    },
+    {
+      "id": "T4-04",
+      "tier": 4,
+      "text": "Giao hàng miễn phí toàn quốc",
+      "note": "TMĐT — câu dài"
+    },
+    {
+      "id": "T4-05",
+      "tier": 4,
+      "text": "Cà phê sữa đá",
+      "note": "đồ uống — à ê ữ đ trong 3 từ"
+    },
+    {
+      "id": "T4-06",
+      "tier": 4,
+      "text": "Hội nghị thường niên 2026",
+      "note": "sự kiện — ộ ị ườ"
+    },
+    {
+      "id": "T4-07",
+      "tier": 4,
+      "text": "Đặt hàng ngay hôm nay",
+      "note": "kêu gọi hành động — Đ hoa đầu câu"
+    },
+    {
+      "id": "T4-08",
+      "tier": 4,
+      "text": "Sản phẩm chính hãng",
+      "note": "tin cậy — ả ẩ í ã"
+    },
+    {
+      "id": "T4-09",
+      "tier": 4,
+      "text": "Chúc mừng năm mới",
+      "note": "dịp lễ — ú ừ ă ớ"
+    },
+    {
+      "id": "T4-10",
+      "tier": 4,
+      "text": "Áo dài truyền thống Việt Nam",
+      "note": "văn hoá — Á hoa + uyề"
+    }
+  ]
+}

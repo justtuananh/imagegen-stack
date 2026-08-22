@@ -1,0 +1,15 @@
+# Ảnh test nháp rời rạc ở thư mục gốc của imagegen-stack (kết quả thử tay hồi
+# 20-22/08, đã bị bộ eval 50 case trong tests/task_eval/ thay thế).
+# Ảnh KẾT QUẢ EVAL thì được giữ lại — chúng là bằng chứng cho điểm số.
+imagegen-stack/*.png
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Thư mục làm việc tạm khi chạy app
+app_sessions/
+ket_qua_tmp/
+*.log

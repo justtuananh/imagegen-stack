@@ -1,0 +1,597 @@
+{
+  "angle": "docs",
+  "sub_questions_covered": ["1", "2", "3", "4", "5", "7"],
+  "claims": [
+    {
+      "id": "docs-001",
+      "sub_question": "2",
+      "claim": "Qwen-Image is a 20B-parameter MMDiT ('20B MMDiT image foundation model') text-to-image and image-editing/understanding model, licensed Apache 2.0.",
+      "evidence": "\"Qwen-Image is licensed under Apache 2.0.\" Model card and GitHub README describe it as a 20B MMDiT foundation model supporting generation, editing (style transfer, object insertion/removal, text editing, pose manipulation), and image understanding tasks (detection, segmentation, depth/edge estimation, super-resolution).",
+      "stance": "supports",
+      "confidence_self": "high",
+      "sources": [
+        {"title": "Qwen/Qwen-Image (HF model card)", "url": "https://huggingface.co/Qwen/Qwen-Image", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"},
+        {"title": "QwenLM/Qwen-Image (GitHub README)", "url": "https://github.com/QwenLM/Qwen-Image", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-002",
+      "sub_question": "2",
+      "claim": "Qwen-Image does NOT generate video; it is image-only (generation + editing + understanding).",
+      "evidence": "Neither the HF model card nor the GitHub README mentions any video generation capability; all listed tasks (generation, editing, understanding/detection/segmentation/super-resolution) are image-only.",
+      "stance": "refutes",
+      "confidence_self": "medium",
+      "sources": [
+        {"title": "Qwen/Qwen-Image (HF model card)", "url": "https://huggingface.co/Qwen/Qwen-Image", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-003",
+      "sub_question": "2",
+      "claim": "Qwen-Image's text encoder is Qwen2.5-VL (7B-Instruct per Diffusers docs class name), VAE class is AutoencoderKLQwenImage; full repo download (transformer + text encoder + VAE + tokenizer) totals ~57.95 GB.",
+      "evidence": "GitHub README: \"Make sure your transformers>=4.51.3 (Supporting Qwen2.5-VL)\". Diffusers docs list text encoder class as Qwen2.5-VL-7B-Instruct and VAE class AutoencoderKLQwenImage. HF repo API (blobs=true) sums siblings to approximately 57,954,375,058 bytes (~57.95 GB), largest files being transformer safetensors shards (~4.99GB each, 9 parts) and text_encoder shards (~4.9-5GB each, 4 parts).",
+      "stance": "supports",
+      "confidence_self": "high",
+      "sources": [
+        {"title": "QwenLM/Qwen-Image README", "url": "https://github.com/QwenLM/Qwen-Image", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"},
+        {"title": "Diffusers docs: Qwen-Image pipelines", "url": "https://huggingface.co/docs/diffusers/en/api/pipelines/qwenimage", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"},
+        {"title": "HF Hub API - Qwen/Qwen-Image file listing", "url": "https://huggingface.co/api/models/Qwen/Qwen-Image?blobs=true", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-004",
+      "sub_question": "2",
+      "claim": "Qwen-Image / DiffSynth-Studio community path claims layer-by-layer CPU offload can run Qwen-Image inference within 4GB VRAM, and FP8 quantization is supported, but no official minimum-VRAM number is stated on the model card (unqualified re: resolution/steps).",
+      "evidence": "\"low-GPU-memory layer-by-layer offload (inference within 4GB VRAM)\" via DiffSynth-Studio, and \"FP8 quantization\" support noted in the GitHub README's community-support section. No resolution, step count, or speed tradeoff is given alongside the 4GB figure.",
+      "stance": "context",
+      "confidence_self": "medium",
+      "caveats": ["unqualified: no resolution/steps stated with the 4GB figure"],
+      "sources": [
+        {"title": "QwenLM/Qwen-Image README", "url": "https://github.com/QwenLM/Qwen-Image", "type": "docs", "date": "2026-08-20", "credibility": "medium", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-005",
+      "sub_question": "2",
+      "claim": "Qwen-Image is natively supported in ComfyUI (since Aug 5, 2025); Diffusers pipeline class is QwenImagePipeline.",
+      "evidence": "\"Qwen-Image is now natively supported in ComfyUI\" (dated Aug 5, 2025 in README changelog). Diffusers docs list pipeline class `QwenImagePipeline` for text-to-image.",
+      "stance": "supports",
+      "confidence_self": "high",
+      "sources": [
+        {"title": "QwenLM/Qwen-Image README", "url": "https://github.com/QwenLM/Qwen-Image", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"},
+        {"title": "Diffusers docs: Qwen-Image pipelines", "url": "https://huggingface.co/docs/diffusers/en/api/pipelines/qwenimage", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-006",
+      "sub_question": "2",
+      "claim": "Qwen-Image's text rendering strength is documented specifically for Chinese/logographic scripts; the official model card does not mention Vietnamese text rendering at all.",
+      "evidence": "\"exceptional performance in text rendering, especially for Chinese\" and capabilities described across \"alphabetic languages like English or logographic scripts like Chinese\" — Vietnamese is not named anywhere on the card.",
+      "stance": "context",
+      "confidence_self": "high",
+      "sources": [
+        {"title": "Qwen/Qwen-Image (HF model card)", "url": "https://huggingface.co/Qwen/Qwen-Image", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-007",
+      "sub_question": "2",
+      "claim": "Qwen-Image-Edit-2509 is a 20B-parameter model (BF16) for instruction-based multi-image and single-image editing, Apache-2.0 licensed, image-only (no video).",
+      "evidence": "Model card lists \"20B params\" / BF16 tensor type, license \"apache-2.0\" verbatim. Capabilities: multi-image editing (1-3 images), person/product/text editing, ControlNet (depth/edge/keypoint) support. No video capability mentioned.",
+      "stance": "supports",
+      "confidence_self": "high",
+      "sources": [
+        {"title": "Qwen/Qwen-Image-Edit-2509 (HF model card)", "url": "https://huggingface.co/Qwen/Qwen-Image-Edit-2509", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-008",
+      "sub_question": "1",
+      "claim": "Wan2.2-TI2V-5B is a dense (non-MoE) 5B-parameter model unifying text-to-video AND image-to-video in one checkpoint at 720P/24fps, Apache-2.0 licensed.",
+      "evidence": "\"TI2V-5B: Architecture: Dense (non-MoE), Parameters: 5B total, all active. Capabilities: Text-to-video AND image-to-video (unified framework). Resolution: 720P (1280x704 or 704x1280), 24fps.\" \"The models in this repository are licensed under the Apache 2.0 License.\"",
+      "stance": "supports",
+      "confidence_self": "high",
+      "sources": [
+        {"title": "Wan-Video/Wan2.2 (GitHub README)", "url": "https://github.com/Wan-Video/Wan2.2", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-009",
+      "sub_question": "1",
+      "claim": "Wan2.2-TI2V-5B does NOT generate still images as a distinct output mode in its documented capability list — its unified capability is T2V and I2V, i.e. video generation from text or an image, not standalone text-to-image.",
+      "evidence": "The README describes TI2V-5B capabilities strictly as \"Text-to-video AND image-to-video (unified framework)\"; no separate text-to-image-only output mode is documented.",
+      "stance": "context",
+      "confidence_self": "medium",
+      "sources": [
+        {"title": "Wan-Video/Wan2.2 (GitHub README)", "url": "https://github.com/Wan-Video/Wan2.2", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-010",
+      "sub_question": "7",
+      "claim": "Official minimum VRAM for Wan2.2-TI2V-5B is \"at least 24GB VRAM (e.g. RTX 4090 GPU)\" for single-GPU inference WITH offloading; without offloading, ≥80GB is implied for full-speed operation.",
+      "evidence": "\"at least 24GB VRAM (e.g, RTX 4090 GPU)\" for single-GPU inference with offloading enabled; alternative path cites ≥80GB for full-speed operation without offloading.",
+      "stance": "supports",
+      "confidence_self": "high",
+      "caveats": ["resolution/frame count for this VRAM figure not explicitly restated alongside it in the fetched excerpt — presumed the model's native 720P; offload=on"],
+      "sources": [
+        {"title": "Wan-Video/Wan2.2 (GitHub README)", "url": "https://github.com/Wan-Video/Wan2.2", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-011",
+      "sub_question": "3",
+      "claim": "Wan2.2 T2V-A14B and I2V-A14B are MoE models with ~27B total parameters and 14B active parameters per inference step, each single-task (T2V-A14B = text-to-video only; I2V-A14B = image-to-video only), supporting 480P and 720P.",
+      "evidence": "\"T2V-A14B: Architecture: Mixture-of-Experts (MoE), Parameters: ~27B total, 14B active per inference step, Capabilities: Text-to-video only, Resolutions: 480P & 720P.\" Same structure stated for I2V-A14B (image-to-video only).",
+      "stance": "supports",
+      "confidence_self": "high",
+      "sources": [
+        {"title": "Wan-Video/Wan2.2 (GitHub README)", "url": "https://github.com/Wan-Video/Wan2.2", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-012",
+      "sub_question": "7",
+      "claim": "Official minimum VRAM stated for Wan2.2 T2V-A14B and I2V-A14B is 'at least 80GB VRAM' for single-GPU inference — i.e. these 27B-total/14B-active MoE video models are documented as requiring A100/H100-class hardware, not RTX 5090/4090/3090.",
+      "evidence": "\"T2V-A14B & I2V-A14B: at least 80GB VRAM for single-GPU inference.\"",
+      "stance": "supports",
+      "confidence_self": "high",
+      "caveats": ["unqualified: resolution/frame count/offload state not specified alongside the 80GB figure in the fetched excerpt"],
+      "sources": [
+        {"title": "Wan-Video/Wan2.2 (GitHub README)", "url": "https://github.com/Wan-Video/Wan2.2", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-013",
+      "sub_question": "5",
+      "claim": "Wan2.2 (TI2V-5B, T2V-A14B, I2V-A14B) was integrated into both ComfyUI and Diffusers as of July 28, 2025.",
+      "evidence": "\"ComfyUI: Integrated (July 28, 2025). Diffusers: Integrated (T2V-A14B, I2V-A14B, TI2V-5B as of July 28, 2025).\"",
+      "stance": "supports",
+      "confidence_self": "high",
+      "sources": [
+        {"title": "Wan-Video/Wan2.2 (GitHub README)", "url": "https://github.com/Wan-Video/Wan2.2", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-014",
+      "sub_question": "7",
+      "claim": "Wan2.2-TI2V-5B's text encoder is umt5-xxl (models_t5_umt5-xxl-enc-bf16.pth, 11.36 GB) and VAE is Wan2.2_VAE.pth (2.81 GB); full repo (diffusion transformer + text encoder + VAE + tokenizer) totals approximately 54.2 GB via the Hugging Face Hub file listing.",
+      "evidence": "HF Hub API (blobs=true) for Wan-AI/Wan2.2-TI2V-5B sums to ~54,202,176,956 bytes (~54.2 GB). Largest files: models_t5_umt5-xxl-enc-bf16.pth (11.36 GB), diffusion_pytorch_model-00002-of-00003.safetensors (9.99 GB), -00001-of-00003 (9.82 GB), Wan2.2_VAE.pth (2.81 GB), -00003-of-00003 (178.5 MB).",
+      "stance": "supports",
+      "confidence_self": "high",
+      "caveats": ["diffusion transformer shards sum to ~19.99GB, roughly double what a 5B-parameter model would need in BF16 (~10GB) — the repo may bundle multiple precisions/redundant files; not independently reconciled against a per-file precision breakdown"],
+      "sources": [
+        {"title": "HF Hub API - Wan-AI/Wan2.2-TI2V-5B file listing", "url": "https://huggingface.co/api/models/Wan-AI/Wan2.2-TI2V-5B?blobs=true", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-015",
+      "sub_question": "2",
+      "claim": "FLUX.2-dev is a 32-billion-parameter rectified-flow transformer supporting text-to-image, single-reference and multi-reference image editing, licensed under the FLUX Non-Commercial License — commercial use of the open-weight model is NOT permitted (a separate paid commercial license exists).",
+      "evidence": "\"32 billion parameter rectified flow transformer.\" \"FLUX Non-Commercial License. Commercial use is not permitted under the open-weight version. A separate commercial license exists for enterprise users.\"",
+      "stance": "supports",
+      "confidence_self": "high",
+      "caveats": ["32B exceeds the plan's <30B parameter constraint for a single candidate model"],
+      "sources": [
+        {"title": "black-forest-labs/FLUX.2-dev (HF model card)", "url": "https://huggingface.co/black-forest-labs/FLUX.2-dev", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-016",
+      "sub_question": "2",
+      "claim": "FLUX.1 Kontext [dev] is 12B parameters, a rectified-flow transformer for instruction-based image editing (\"change existing images based on an edit instruction\"), released June 17, 2025, under the FLUX.1 [dev] Non-Commercial License — the license text states generated outputs may be used for personal, scientific, and commercial purposes, but the model weights themselves are non-commercial-only.",
+      "evidence": "\"12 billion parameters... Rectified flow transformer.\" \"FLUX.1 [dev] Non-Commercial License... generated outputs can be used for personal, scientific, and commercial purposes.\" Release inferred from arXiv paper 2506.15742 (June 17, 2025).",
+      "stance": "supports",
+      "confidence_self": "medium",
+      "caveats": ["license nuance: 'commercial use of outputs allowed' vs 'commercial use of the model itself' should be read against BFL's actual license terms directly, since WebFetch summarized rather than quoted the full clause"],
+      "sources": [
+        {"title": "black-forest-labs/FLUX.1-Kontext-dev (HF model card)", "url": "https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-017",
+      "sub_question": "1",
+      "claim": "BAGEL-7B-MoT is a Mixture-of-Transformer-Experts model with 14B total parameters and 7B active parameters, supporting text-to-image generation, image editing, and multimodal/vision-language understanding — but its model card contains NO explicit statement of video generation capability.",
+      "evidence": "\"Total: 14B parameters, Active: 7B parameters (Mixture-of-Transformer-Experts architecture).\" Capabilities listed: text-to-image generation, image editing, multimodal understanding, multiview synthesis/world navigation. \"No explicit statement about video generation capability is present in the documentation.\"",
+      "stance": "refutes",
+      "confidence_self": "medium",
+      "sources": [
+        {"title": "ByteDance-Seed/BAGEL-7B-MoT (HF model card)", "url": "https://huggingface.co/ByteDance-Seed/BAGEL-7B-MoT", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-018",
+      "sub_question": "7",
+      "claim": "BAGEL-7B-MoT: text encoder is Qwen2.5-7B-Instruct, vision encoder is siglip-so400m-14-384-flash-attn2, VAE is from FLUX.1-schnell; license is Apache 2.0. No official VRAM figure or download-size figure is stated on the model card.",
+      "evidence": "\"Text encoder: Qwen2.5-7B-Instruct (base model). Vision encoder: siglip-so400m-14-384-flash-attn2. VAE: FLUX.1-schnell.\" \"BAGEL is licensed under the Apache 2.0 license.\" Model size shown on card as \"15B params\" (BF16 tensor type badge, likely rounding of the 14B total).",
+      "stance": "supports",
+      "confidence_self": "medium",
+      "sources": [
+        {"title": "ByteDance-Seed/BAGEL-7B-MoT (HF model card)", "url": "https://huggingface.co/ByteDance-Seed/BAGEL-7B-MoT", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-019",
+      "sub_question": "3",
+      "claim": "LTX-Video 13B (0.9.8) is a DiT-based video model capable of 30 FPS video at 1216x704; the dev variant \"requires more VRAM\" than distilled/2B versions but no specific GB figure is given on the model card; FP8-quantized checkpoints (ltxv-13b-0.9.8-dev-fp8, ltxv-13b-0.9.8-distilled-fp8) are officially provided; no GGUF quant is mentioned on the card.",
+      "evidence": "\"13B parameters... DiT-based video generation model... generating 30 FPS videos at 1216x704 resolution faster than they can be watched.\" \"13B-0.9.8-dev variant requires more VRAM... 2B distilled version has lighter VRAM usage\" (no numbers given). Quant options: \"ltxv-13b-0.9.8-dev-fp8\" and \"ltxv-13b-0.9.8-distilled-fp8\"; \"No GGUF quantization mentioned.\"",
+      "stance": "supports",
+      "confidence_self": "medium",
+      "caveats": ["VRAM claim is qualitative only, no GB figure — flagged unqualified"],
+      "sources": [
+        {"title": "Lightricks/LTX-Video (HF model card)", "url": "https://huggingface.co/Lightricks/LTX-Video", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-020",
+      "sub_question": "5",
+      "claim": "LTX-Video is fully supported in Diffusers (with example code) and supported in ComfyUI via a dedicated repository; license is 'LTX-Video-Open-Weights-License-0.X.txt' (exact terms not read from this fetch).",
+      "evidence": "\"Diffusers: Fully supported with example code provided. ComfyUI: Supported via dedicated repository.\" License file named \"LTX-Video-Open-Weights-License-0.X.txt\" for 0.9.8 variants.",
+      "stance": "supports",
+      "confidence_self": "medium",
+      "caveats": ["license full text not verified — only the filename was captured; needs direct read of the license file before asserting commercial-use terms"],
+      "sources": [
+        {"title": "Lightricks/LTX-Video (HF model card)", "url": "https://huggingface.co/Lightricks/LTX-Video", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-021",
+      "sub_question": "3",
+      "claim": "HunyuanVideo is 13+ billion parameters using a dual-stream-to-single-stream hybrid Transformer with full attention; official VRAM: 60GB peak memory for 720p (1280x720, 129 frames), 45GB peak memory for 544p (960x544, 129 frames); minimum stated GPU memory is 60GB for 720x1280x129f. License is the 'tencent-hunyuan-community' license.",
+      "evidence": "\"720p (1280x720, 129 frames): 60GB peak memory. 544p (960x544, 129 frames): 45GB peak memory.\" \"Minimum GPU memory required is 60GB for 720px1280px129f\"; CPU offload available for high-res generation. License: tencent-hunyuan-community.",
+      "stance": "supports",
+      "confidence_self": "high",
+      "caveats": ["quant=not specified (likely BF16 default); offload=off for the 60GB/45GB figures, offload available separately for higher-res runs"],
+      "sources": [
+        {"title": "tencent/HunyuanVideo (HF model card)", "url": "https://huggingface.co/tencent/HunyuanVideo", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-022",
+      "sub_question": "7",
+      "claim": "HunyuanVideo's text encoder is a decoder-only MLLM with a bidirectional token refiner; VAE is a 3D VAE (CausalConv3D) with compression ratios 4 (temporal) x 8 (spatial) x 16 (channel). Diffusers integration landed Dec 17, 2024; ComfyUI support was listed on the open-source roadmap (not confirmed as shipped in this excerpt).",
+      "evidence": "\"Text Encoder: Multimodal Large Language Model (MLLM) with decoder-only structure + bidirectional token refiner. VAE: 3D VAE using CausalConv3D, compression ratios of 4 (temporal), 8 (spatial), 16 (channel).\" \"Diffusers: integrated into Diffusers as of Dec 17, 2024. ComfyUI: listed in open-source plan.\"",
+      "stance": "supports",
+      "confidence_self": "medium",
+      "sources": [
+        {"title": "tencent/HunyuanVideo (HF model card)", "url": "https://huggingface.co/tencent/HunyuanVideo", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-023",
+      "sub_question": "3",
+      "claim": "CogVideoX-5B is actually 6B parameters (per the HF model card fetched — note plan calls it '5B' but the card states 6B) using an Expert Transformer with 3D RoPE; text encoder T5EncoderModel, VAE AutoencoderKLCogVideoX. Official VRAM (Diffusers, BF16, with CPU offload + VAE tiling, 720x480 6s@8fps, 50 steps): single-GPU 'starting from 5GB'; multi-GPU BF16 15GB; INT8-quantized 'starting from 4.4GB'.",
+      "evidence": "\"Parameter Count: 6B parameters.\" \"Single GPU (BF16, diffusers): starting from 5GB with optimizations enabled. Multi-GPU (BF16): 15GB using diffusers. INT8 quantization: starting from 4.4GB. Context: 720x480 resolution, 6-second videos (8 fps), 50 inference steps, with CPU offloading and VAE tiling enabled.\"",
+      "stance": "mixed",
+      "confidence_self": "medium",
+      "caveats": ["quant=BF16 and INT8 explicitly stated; resolution/frames/offload=on all stated — this is a fully-qualified VRAM figure, rare among sources checked", "discrepancy: card states 6B params, not 5B as named in the plan/model name 'CogVideoX-5b' — worth reconciling in synthesis"],
+      "sources": [
+        {"title": "THUDM/CogVideoX-5b (HF model card, zai-org)", "url": "https://huggingface.co/THUDM/CogVideoX-5b", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-024",
+      "sub_question": "3",
+      "claim": "Mochi 1 preview is a 10B-parameter Asymmetric Diffusion Transformer (AsymmDiT, 48 layers/24 heads) with a T5-XXL text encoder and a 362M-parameter AsymmVAE (8x8 spatial, 6x temporal compression, 12-channel latent). License Apache 2.0 (commercial use allowed). Official VRAM: single GPU 'approximately 60GB VRAM'; with optimizations via ComfyUI, 'less than 20GB VRAM'; recommended 'at least 1 H100 GPU'. Current release generates 480p, up to 84 frames.",
+      "evidence": "\"10 billion parameters... Asymmetric Diffusion Transformer (AsymmDiT)... Text encoder: T5-XXL... AsymmVAE with 362M parameters.\" \"Single GPU: approximately 60GB VRAM. With optimizations: less than 20GB VRAM via ComfyUI. Recommended: at least 1 H100 GPU.\" \"Generates at 480p... supports up to 84 frames.\"",
+      "stance": "supports",
+      "confidence_self": "high",
+      "caveats": ["the '<20GB via ComfyUI' figure is unqualified re: exact quant/resolution/offload settings used"],
+      "sources": [
+        {"title": "genmo/mochi-1-preview (HF model card)", "url": "https://huggingface.co/genmo/mochi-1-preview", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-025",
+      "sub_question": "3",
+      "claim": "Open-Sora 2.0 is 11B parameters (Transformer-based diffusion), Apache-2.0 licensed, and a single model supports BOTH text-to-video and image-to-video at 256px and 768px resolution. Official peak memory: 256x256 T2I2V single-GPU = 52.5GB peak memory / 60s total time (with offload=True); 768x768 on 8 GPUs = 44.3GB peak memory / 276s.",
+      "evidence": "\"11 billion parameters... License: Apache-2.0.\" \"supports 256px and 768px resolution. Both T2V and I2V are supported by one model.\" \"For 256x256... 60 seconds total time / 52.5GB peak memory... offload True is used for 256x256 testing. For 768x768 with 8 GPUs: 276 seconds / 44.3GB peak memory.\"",
+      "stance": "supports",
+      "confidence_self": "high",
+      "caveats": ["256x256 figure: offload=True stated explicitly (qualified); 768x768/8-GPU figure does not restate offload setting"],
+      "sources": [
+        {"title": "hpcaitech/Open-Sora (GitHub README)", "url": "https://github.com/hpcaitech/Open-Sora", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-026",
+      "sub_question": "4",
+      "claim": "SUPIR is a photo-realistic image restoration model built on SDXL components (SDXL CLIP encoders, SDXL base model referenced as dependencies), licensed for NON-COMMERCIAL use only — 'Non-Commercial Use Only... strictly for non-commercial purposes,' commercial use requires prior written permission from Dr. Jinjin Gu. VRAM: one low-memory config states '12G for Diffusion, 16G for LLaVA'.",
+      "evidence": "\"Non-Commercial Use Only... made available for use, reproduction, and distribution strictly for non-commercial purposes... commercial use requires prior written permission from Dr. Jinjin Gu.\" \"12G for Diffusion, 16G for LLaVA\" when using reduced-memory options. Two variants offered: SUPIR-v0Q and SUPIR-v0F.",
+      "stance": "supports",
+      "confidence_self": "high",
+      "caveats": ["VRAM figure unqualified: no resolution/tile-size context given for the 12G/16G numbers"],
+      "sources": [
+        {"title": "Fanghua-Yu/SUPIR (GitHub README)", "url": "https://github.com/Fanghua-Yu/SUPIR", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-027",
+      "sub_question": "4",
+      "claim": "SeedVR2 (3B and 7B variants) is a diffusion-transformer video/image restoration model with adaptive window attention, doing single-step high-resolution video restoration; Apache 2.0 licensed. Official VRAM: '1 H100-80G can handle videos with 100x720x1280. 4 H100-80G further support 1080p and 2K videos (sp_size=4).' ComfyUI integration exists via a community project (ComfyUI-SeedVR2_VideoUpscaler).",
+      "evidence": "\"3B and 7B model variants\" (from configs_3b/configs_7b folder names). \"SeedVR and SeedVR2 are licensed under the Apache 2.0.\" \"1 H100-80G can handle videos with 100x720x1280. 4 H100-80G further support 1080p and 2K videos (sp_size=4).\" ComfyUI credited via linked ComfyUI-SeedVR2_VideoUpscaler project.",
+      "stance": "supports",
+      "confidence_self": "medium",
+      "caveats": ["exact per-variant (3B vs 7B) parameter counts not explicitly stated as numbers in the README text itself, only inferred from config folder names; download sizes not stated"],
+      "sources": [
+        {"title": "ByteDance-Seed/SeedVR (GitHub README)", "url": "https://github.com/ByteDance-Seed/SeedVR", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-028",
+      "sub_question": "4",
+      "claim": "Real-ESRGAN is BSD-3-Clause licensed with multiple variants (RealESRGAN_x4plus, x2plus, x4plus_anime_6B, realesr-general-x4v3, AnimeVideo-v3); the '6B' in 'RealESRGAN_x4plus_anime_6B' is a naming artifact and should NOT be read as 6 billion parameters — Real-ESRGAN models are small conv-based ESRGAN nets (tens of MB), and the GitHub README provides no explicit parameter counts. No VRAM figures or download sizes are stated in the README; no ComfyUI mention on this page (ComfyUI support for Real-ESRGAN upscalers exists broadly in the ecosystem via other integrations, not documented on this repo's README).",
+      "evidence": "\"RealESRGAN_x4plus_anime_6B — the '6B' designation suggests 6 billion parameters, but this is inferred from the model name only; no explicit confirmation.\" \"License: BSD-3-Clause.\" \"VRAM Requirements: Not specified... Download Sizes: Not stated... No mention of ComfyUI compatibility in this page.\"",
+      "stance": "refutes",
+      "confidence_self": "high",
+      "caveats": ["explicitly correcting a likely misreading: '6B' in the model filename almost certainly denotes 6 residual blocks (a common ESRGAN naming convention), not 6 billion parameters — flagging this so downstream synthesis does not treat Real-ESRGAN as a billion-parameter model"],
+      "sources": [
+        {"title": "xinntao/Real-ESRGAN (GitHub README)", "url": "https://github.com/xinntao/Real-ESRGAN", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-029",
+      "sub_question": "4",
+      "claim": "4x-UltraSharp is an ESRGAN (64nf23nb variant) 4x upscaler, 63.9 MB .pth file, licensed CC-BY-NC-SA-4.0 — NON-COMMERCIAL, requires attribution and share-alike. Optimized for JPEG-compressed/degraded photo restoration, not anime-specific.",
+      "evidence": "\"Architecture: ESRGAN (64nf23nb variant). Scale Factor: 4x. File Size: 63.9 MB (PyTorch .pth format). License: CC-BY-NC-SA-4.0 (requires credit, prohibits commercial use, requires derivative works use same license).\" \"does work best on JPEG compression though, as that's mostly what it was trained on.\"",
+      "stance": "supports",
+      "confidence_self": "high",
+      "sources": [
+        {"title": "4x-UltraSharp model page, OpenModelDB", "url": "https://openmodeldb.info/models/4x-UltraSharp", "type": "docs", "date": "2026-08-20", "credibility": "medium", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-030",
+      "sub_question": "5",
+      "claim": "ComfyUI-GGUF (city96) provides GGUF-format quantization loading for ComfyUI targeting transformer/DiT architectures (not conv2d UNETs); city96 provides pre-quantized GGUF files for FLUX.1-dev, FLUX.1-schnell, SD3.5 (large/large-turbo), and T5 v1.1-xxl text encoder. Apache-2.0 licensed. Installation is a simple git-clone into custom_nodes plus 'pip install --upgrade gguf' — no other runtime dependency, making it usable fully offline once installed.",
+      "evidence": "\"support for model files stored in the GGUF format popularized by llama.cpp.\" \"quantization wasn't feasible for regular UNET models (conv2d), transformer/DiT models such as flux seem less affected by quantization.\" City96 GGUF releases listed: \"FLUX.1-dev and FLUX.1-schnell, Stable Diffusion 3.5 (large and large-turbo), T5 v1.1-xxl encoder.\" \"Installation involves cloning the repository into the custom_nodes folder with pip install --upgrade gguf as the only dependency.\" License: Apache-2.0.",
+      "stance": "supports",
+      "confidence_self": "high",
+      "caveats": ["the fetched README excerpt did not enumerate Wan or Qwen-Image GGUF specifically under city96's own releases — QuantStack (a separate HF org) is the source for Qwen-Image GGUF quants confirmed directly (see docs-031); Wan2.2-TI2V-5B GGUF page could not be fetched (401 Unauthorized) so its exact per-quant sizes are a gap"],
+      "sources": [
+        {"title": "city96/ComfyUI-GGUF (GitHub README)", "url": "https://github.com/city96/ComfyUI-GGUF", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-031",
+      "sub_question": "5",
+      "claim": "QuantStack/Qwen-Image-GGUF provides Qwen-Image quantized from Q2_K (7.06 GB) through Q8_0 (21.8 GB): Q2_K 7.06GB, Q3_K_S 8.95GB, Q3_K_M 9.68GB, Q4_K_S 12.1GB, Q4_0 11.9GB, Q4_1 12.8GB, Q4_K_M 13.1GB, Q5_K_S 14.1GB, Q5_0 14.4GB, Q5_1 15.4GB, Q5_K_M 14.9GB, Q6_K 16.8GB, Q8_0 21.8GB. No VRAM guidance is given per quant level on the repo page.",
+      "evidence": "Direct file-size listing fetched from the repo page: \"Q2_K at 7.06 GB... Q3_K_S at 8.95 GB; Q3_K_M at 9.68 GB... Q4_K_S at 12.1 GB; Q4_0 at 11.9 GB; Q4_1 at 12.8 GB; Q4_K_M at 13.1 GB... Q5_K_S at 14.1 GB; Q5_0 at 14.4 GB; Q5_1 at 15.4 GB; Q5_K_M at 14.9 GB... Q6_K at 16.8 GB... Q8_0 at 21.8 GB... no specific VRAM recommendations for any quantization level.\"",
+      "stance": "supports",
+      "confidence_self": "high",
+      "sources": [
+        {"title": "QuantStack/Qwen-Image-GGUF (HF repo)", "url": "https://huggingface.co/QuantStack/Qwen-Image-GGUF", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-032",
+      "sub_question": "5",
+      "claim": "Nunchaku (SVDQuant, mit-han-lab) is a 4-bit inference engine achieving 3.6x memory reduction vs BF16 on FLUX.1-dev and up to 8.7x speedup on laptop GPUs; supports FLUX.1 (dev/schnell/tools/Krea-dev/Kontext), Qwen-Image and Qwen-Image-Edit-2509, Z-Image-Turbo, SANA 1.6B, PixArt-Sigma, SD models. Uses INT4 weights/activations, with NVFP4 support specifically for RTX 5090. Minimum VRAM cited: 4 GiB for FLUX with 4-bit text encoder + CPU offload; 3 GiB for Qwen-Image with async offloading. Apache-2.0 licensed, with dedicated ComfyUI-nunchaku native node support.",
+      "evidence": "\"3.6x memory reduction compared to the BF16 model\" on FLUX.1-dev; \"8.7x speedup over the 16-bit model\" on laptop GPUs. \"Format: INT4 weights and activations (also NVFP4 for RTX 5090).\" \"VRAM savings: Minimum 4 GiB for FLUX with 4-bit text encoder and CPU offloading; 3 GiB with asynchronous offloading on Qwen-Image.\" \"Fully supported via ComfyUI-nunchaku with native nodes, LoRA support.\" License: Apache-2.0.",
+      "stance": "supports",
+      "confidence_self": "high",
+      "caveats": ["4GiB/3GiB figures are unqualified re: resolution/step count"],
+      "sources": [
+        {"title": "mit-han-lab/nunchaku (GitHub README)", "url": "https://github.com/mit-han-lab/nunchaku", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-033",
+      "sub_question": "5",
+      "claim": "DiffSynth-Studio (modelscope) is an Apache-2.0-licensed open-source diffusion engine supporting Qwen-Image (+ Edit/Layered/EliGen variants), FLUX.2 (dev/klein), Wan-Video/Wan-Animate-2, HunyuanVideo, CogVideoX-5B, LTX-2.3 among others, with layer-by-layer CPU/disk offload; stated low-VRAM figures: Z-Image-Turbo runnable with 'as little as 8 GB VRAM', HunyuanVideo with distilled features down to '6GB VRAM'.",
+      "evidence": "\"Layer-by-layer offload to CPU/disk, enabling inference with minimal VRAM... Models run with as little as 8 GB of VRAM (Z-Image-Turbo) or even 6GB VRAM (HunyuanVideo with distilled features).\" Supported models list includes Qwen-Image variants, FLUX.2 dev/klein, Wan series, HunyuanVideo, CogVideoX-5B, LTX-2.3.",
+      "stance": "supports",
+      "confidence_self": "medium",
+      "caveats": ["the 6GB/8GB VRAM figures are unqualified: no resolution/frame-count/step context given in the fetched excerpt"],
+      "sources": [
+        {"title": "modelscope/DiffSynth-Studio (GitHub README)", "url": "https://github.com/modelscope/DiffSynth-Studio", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-034",
+      "sub_question": "1",
+      "claim": "SkyReels-V2 offers 1.3B, 5B, and 14B parameter variants using an 'AutoRegressive Diffusion-Forcing architecture' supporting T2V, I2V, video extension, and infinite-length generation via start/end frame control. Official peak-VRAM figures: 540P Diffusion-Forcing with the 1.3B model ~14.7GB peak VRAM; 540P with the 14B model ~51.2GB peak VRAM; T2V generation with the 14B model ~43.4GB peak VRAM. Supports Diffusers pipelines and xDiT USP multi-GPU acceleration; no ComfyUI support mentioned.",
+      "evidence": "\"1.3B, 5B, and 14B variants... AutoRegressive Diffusion-Forcing architecture.\" \"540P video using the 1.3B model requires approximately 14.7GB peak VRAM; same resolution video using the 14B model demands around 51.2GB peak VRAM (Diffusion Forcing); T2V generation: 14B model demands around 43.4GB peak VRAM.\" \"Diffusers integration: Full support... xDiT USP: Multi-GPU acceleration via torchrun. No ComfyUI support mentioned.\"",
+      "stance": "supports",
+      "confidence_self": "medium",
+      "caveats": ["these VRAM figures qualify resolution (540P) and model size but do not state frame count, precision, or offload state — partially qualified"],
+      "sources": [
+        {"title": "SkyworkAI/SkyReels-V2 (GitHub README)", "url": "https://github.com/SkyworkAI/SkyReels-V2", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-035",
+      "sub_question": "1",
+      "claim": "SkyReels-V3 (released Jan 29, 2026) is video-ONLY — NOT a unified image+video model — comprising three variants: R2V-14B (reference-to-video), V2V-14B (video extension), A2V-19B (audio-driven talking avatar). No still-image generation output mode is documented for any variant. A2V-19B exceeds the plan's <30B constraint only marginally within a single model but the largest variant (19B) is still under 30B.",
+      "evidence": "\"R2V-14B: 14 billion parameters (Reference to Video). V2V-14B: 14 billion parameters (Video Extension). A2V-19B: 19 billion parameters (Talking Avatar). Output Modality: Video only. The repository contains no mention of still image generation capabilities.\" Release date confirmed via search: \"The inference code and model weights of SkyReels-V3 were released on Jan 29, 2026.\"",
+      "stance": "refutes",
+      "confidence_self": "high",
+      "sources": [
+        {"title": "SkyworkAI/SkyReels-V3 (GitHub README)", "url": "https://github.com/SkyworkAI/SkyReels-V3", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-036",
+      "sub_question": "7",
+      "claim": "SkyReels-V3 provides a '--low_vram' flag enabling FP8 weight-only quantization plus block offload, and recommends dropping to 540P or 480P resolution for GPUs under 24GB — but the README gives no absolute VRAM figure (e.g. a stated 'requires XGB') for any variant.",
+      "evidence": "\"--low_vram flag enables FP8 weight-only quantization and block offload. Lower resolution option: --resolution 540P or 480P suggested for GPUs under 24GB. No absolute VRAM figures (e.g., requires 48GB) are specified.\"",
+      "stance": "context",
+      "confidence_self": "medium",
+      "caveats": ["unqualified: no GB number given at all"],
+      "sources": [
+        {"title": "SkyworkAI/SkyReels-V3 (GitHub README)", "url": "https://github.com/SkyworkAI/SkyReels-V3", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-037",
+      "sub_question": "2",
+      "claim": "OmniGen2 uses two decoupled decoding pathways (text vs image, unshared parameters) with Qwen-VL-2.5 as the text/foundation encoder; supports visual understanding, text-to-image generation, instruction-guided image editing, and in-context generation — NO video generation is mentioned. Apache-2.0 licensed. Official VRAM: 'natively requires an NVIDIA RTX 3090 or equivalent GPU with approximately 17GB of VRAM'; CPU offload reduces usage by ~50%; sequential CPU offload can reach '<3GB' with a large speed penalty.",
+      "evidence": "\"two distinct decoding pathways for text and image modalities, utilizing unshared parameters and a decoupled image tokenizer.\" \"Text encoder: Qwen-VL-2.5 foundation.\" \"Apache-2.0 license.\" \"OmniGen2 natively requires an NVIDIA RTX 3090 or an equivalent GPU with approximately 17GB of VRAM. With CPU offload enabled, Reduces VRAM usage by nearly 50%. Sequential CPU offload can achieve less than 3GB but with significantly reduced speed.\" ComfyUI: official support confirmed; Diffusers integration listed as TODO (not yet implemented).",
+      "stance": "supports",
+      "confidence_self": "high",
+      "caveats": ["17GB figure is unqualified re: resolution/steps"],
+      "sources": [
+        {"title": "VectorSpaceLab/OmniGen2 (GitHub README)", "url": "https://github.com/VectorSpaceLab/OmniGen2", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-038",
+      "sub_question": "1",
+      "claim": "Lumina-DiMOO is an 8B-parameter unified DISCRETE DIFFUSION model (explicitly not autoregressive, not hybrid AR-diffusion) supporting text-to-image generation (including arbitrary/high-resolution), image-to-image (editing, subject-driven generation, inpainting), and image understanding — released as an arXiv preprint Oct 7, 2025 (2510.06308), Apache-2.0 licensed. No video capability is mentioned. No VRAM figure stated.",
+      "evidence": "\"8B params.\" \"unified discrete diffusion architecture... not autoregressive or hybrid AR-diffusion approaches.\" Capabilities: \"Text-to-image generation... Image-to-image generation (editing, subject-driven generation, inpainting)... Image understanding/vision tasks.\" \"apache-2.0.\" Release: \"arxiv preprint dated 2510.06308\" (Oct 7, 2025).",
+      "stance": "supports",
+      "confidence_self": "medium",
+      "sources": [
+        {"title": "Alpha-VLLM/Lumina-DiMOO (HF model card)", "url": "https://huggingface.co/Alpha-VLLM/Lumina-DiMOO", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-039",
+      "sub_question": "1",
+      "claim": "Emu3-Gen (BAAI) is an 8B-parameter PURE autoregressive next-token-prediction model — 'a single transformer from scratch on a mixture of multimodal sequences' — that tokenizes image, text, AND video into a shared discrete space, and its model card explicitly lists 'Video generation and extension (causal prediction)' as a capability alongside text-to-image generation and vision-language understanding. Apache-2.0 licensed, released Sep 27, 2024. Requires trust_remote_code=True.",
+      "evidence": "\"8B parameters.\" \"next-token prediction as its sole training approach, tokenizing images, text, and videos into discrete space and training a single transformer from scratch on a mixture of multimodal sequences.\" Capabilities: \"Text-to-image generation with flexible resolutions... Video generation and extension (causal prediction).\" \"apache-2.0.\" \"requires trust_remote_code=True.\"",
+      "stance": "supports",
+      "confidence_self": "medium",
+      "caveats": ["fetched from the BAAI/Emu3-Gen (image-generation-focused) checkpoint page; video capability may live on a separate Emu3 checkpoint variant (e.g. Emu3-Chat or a dedicated video repo) rather than being emitted by this exact same weights file — this distinction (single checkpoint vs family of checkpoints) needs cross-checking before calling Emu3 'truly unified' in the report"],
+      "sources": [
+        {"title": "BAAI/Emu3-Gen (HF model card)", "url": "https://huggingface.co/BAAI/Emu3-Gen", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-040",
+      "sub_question": "1",
+      "claim": "Show-o2 is offered at two LLM sizes (1.5B and 7B), combining autoregressive modeling and flow matching over a text-token + 3D Causal VAE space; checkpoints with a 'video' suffix (distinct from the base checkpoints) enable video understanding alongside image generation and mixed-modality generation. Apache-2.0 licensed. Checkpoints listed: showlab/show-o2-1.5B, show-o2-1.5B-HQ, show-o2-7B, plus video-enhanced variants.",
+      "evidence": "\"Available in two sizes: 1.5B and 7B LLM parameters.\" \"autoregressive modeling and flow matching... dual-path of spatial(-temporal) fusion.\" \"Single checkpoint supports multiple modalities: multimodal understanding, image/video and mixed-modality generation. Models with video suffix enable video understanding alongside image generation.\" License Apache-2.0.",
+      "stance": "mixed",
+      "confidence_self": "medium",
+      "caveats": ["the README's own phrasing is internally ambiguous: it says 'single checkpoint supports... image/video' generally, but then separately notes 'models with video suffix enable video' — implying video capability may require a DIFFERENT checkpoint than the base image checkpoint, not literally the same weights; needs the exact checkpoint list re-read to settle whether ANY single Show-o2 checkpoint emits both image and video"],
+      "sources": [
+        {"title": "showlab/Show-o (GitHub README)", "url": "https://github.com/showlab/Show-o", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-041",
+      "sub_question": "2",
+      "claim": "Step1X-Edit is a DiT-based unified image-editing model that processes MLLM-derived editing tokens for instruction-based image editing; licensed apache-2.0 (commercial use allowed). No parameter count, text encoder/VAE names, VRAM figure, or download size were found on the fetched model card page.",
+      "evidence": "\"DiT-based network that processes editing tokens generated by an MLLM (Multimodal Large Language Model) for image understanding.\" \"a unified image editing model performs impressively on various genuine user instructions.\" \"apache-2.0 (allows commercial use).\" Parameter count, VRAM, download size: \"Not stated.\"",
+      "stance": "context",
+      "confidence_self": "low",
+      "sources": [
+        {"title": "stepfun-ai/Step1X-Edit (HF model card)", "url": "https://huggingface.co/stepfun-ai/Step1X-Edit", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-042",
+      "sub_question": "2",
+      "claim": "HiDream-I1-Full is 17B parameters, a Sparse Diffusion Transformer, using dual text encoders (google/t5-v1_1-xxl, Apache-2.0, and meta-llama/Meta-Llama-3.1-8B-Instruct, Llama 3.1 Community License) and a VAE from FLUX.1-schnell (Apache-2.0). HiDream-I1 itself is MIT-licensed with commercial use explicitly permitted ('Generated images can be freely used for personal projects, scientific research, and commercial applications'), though the bundled Llama 3.1 text encoder carries its own community license terms. Diffusers supported; ComfyUI support not mentioned on this card.",
+      "evidence": "\"17B parameters... Sparse Diffusion Transformer.\" \"Text encoders: google/t5-v1_1-xxl (Apache 2.0) and meta-llama/Meta-Llama-3.1-8B-Instruct (Llama 3.1 Community License). VAE: from FLUX.1 schnell (Apache 2.0).\" \"MIT License with commercial usage permitted... Generated images can be freely used for personal projects, scientific research, and commercial applications.\" \"Diffusers: Fully supported with code examples provided. ComfyUI: Not mentioned.\"",
+      "stance": "supports",
+      "confidence_self": "high",
+      "caveats": ["overall commercial-use posture is complicated by the bundled Llama-3.1-8B-Instruct text encoder's separate community license — worth flagging in the report rather than calling this simply 'MIT'"],
+      "sources": [
+        {"title": "HiDream-ai/HiDream-I1-Full (HF model card)", "url": "https://huggingface.co/HiDream-ai/HiDream-I1-Full", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-043",
+      "sub_question": "2",
+      "claim": "HiDream-E1-1 (the editing variant) is also 17B parameters, MIT-licensed for the transformer, using the same FLUX.1-schnell VAE and dual T5-XXL / Llama-3.1-8B-Instruct text encoders as HiDream-I1, supporting global edits, element addition, text edits, background/color changes, style transfer, and object removal. No VRAM or download-size figures stated.",
+      "evidence": "\"17B parameters.\" \"Image editing functionality... global edits, adding elements, text modifications, background changes, color adjustments, style transfers, and object removal.\" \"License: MIT License for the Transformer models. VAE component comes from FLUX.1 schnell under Apache 2.0. Text encoders are from google/t5-v1_1-xxl (Apache 2.0) and meta-llama/Meta-Llama-3.1-8B-Instruct (Llama 3.1 Community License).\"",
+      "stance": "supports",
+      "confidence_self": "medium",
+      "sources": [
+        {"title": "HiDream-ai/HiDream-E1-1 (HF model card)", "url": "https://huggingface.co/HiDream-ai/HiDream-E1-1", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-044",
+      "sub_question": "2",
+      "claim": "Chroma1-HD is an 8.9B-parameter text-to-image model based on FLUX.1-schnell (built by replacing FLUX's 3.3B timestep-encoding layer with a 250M-parameter FFN, reducing total params from 12B to 8.9B); uses T5-XXL text encoder and FLUX VAE (per the ComfyUI workflow instructions on the card); fully Apache-2.0 licensed (commercial use permitted). Both Diffusers and ComfyUI are supported, with a gemlite quantized-inference example provided.",
+      "evidence": "\"8.9B parameter text-to-image foundational model based on FLUX.1-schnell. The developers reduced parameters from 12B by replacing a 3.3B timestep-encoding layer with a 250M parameter FFN.\" \"T5 XXL Text Encoder and FLUX VAE for ComfyUI workflows.\" \"Fully Apache 2.0 licensed, which permits commercial use and modification.\" \"Both Diffusers and ComfyUI are supported.\"",
+      "stance": "supports",
+      "confidence_self": "high",
+      "sources": [
+        {"title": "lodestones/Chroma1-HD (HF model card)", "url": "https://huggingface.co/lodestones/Chroma1-HD", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-045",
+      "sub_question": "5",
+      "claim": "Diffusers documents multiple Qwen-Image pipeline classes: QwenImagePipeline (text-to-image), QwenImageEditPipeline / QwenImageEditInpaintPipeline / QwenImageEditPlusPipeline (editing variants), plus QwenImageImg2ImgPipeline, QwenImageInpaintPipeline, QwenImageControlNetPipeline, QwenImageLayeredPipeline. Text encoder class Qwen2.5-VL-7B-Instruct (Qwen2Tokenizer / Qwen2VLProcessor); VAE class AutoencoderKLQwenImage. No bitsandbytes or GGUF quantization examples appear in the official Diffusers docs page — only bf16 examples. One performance figure given: torch.compile speedup on A100 80GB from 4.70s to 1.93s (~2.4x).",
+      "evidence": "Pipeline classes and encoder/VAE class names listed directly from the Diffusers documentation page for Qwen-Image pipelines. \"torch.compile speedup on A100 80GB: 4.70s -> 1.93s (~2.4x speedup). No explicit VRAM requirements or memory consumption figures are provided.\"",
+      "stance": "supports",
+      "confidence_self": "high",
+      "sources": [
+        {"title": "Diffusers docs: Qwen-Image pipelines", "url": "https://huggingface.co/docs/diffusers/en/api/pipelines/qwenimage", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    },
+    {
+      "id": "docs-046",
+      "sub_question": "5",
+      "claim": "Diffusers' Wan documentation describes the Wan suite as built on the 'mainstream diffusion transformer paradigm' with a novel VAE, and states Wan-2.1 (the report cited on the docs page) offers 1.3B and 14B parameter models covering image-to-video, instruction-guided video editing, and personal video generation across up to eight downstream tasks — this citation is for Wan-2.1, not Wan-2.2, so parameter counts here should not be conflated with the Wan2.2 figures already captured (docs-008, docs-011).",
+      "evidence": "\"Wan-2.1 by the Wan Team... Wan offers two capable models, i.e., 1.3B and 14B parameters, for efficiency and effectiveness respectively. It also covers multiple downstream applications, including image-to-video, instruction-guided video editing, and personal video generation, encompassing up to eight tasks.\"",
+      "stance": "context",
+      "confidence_self": "medium",
+      "caveats": ["this text is Wan-2.1's abstract as reproduced on the Diffusers docs page, not Wan-2.2 — kept separate from the Wan2.2 GitHub-sourced claims to avoid conflating versions"],
+      "sources": [
+        {"title": "Diffusers docs: Wan pipelines", "url": "https://huggingface.co/docs/diffusers/en/api/pipelines/wan", "type": "docs", "date": "2026-08-20", "credibility": "high", "access": "full"}
+      ]
+    }
+  ],
+  "gaps": [
+    "context7 MCP tools (resolve-library-id / get-library-docs) were NOT available in this environment — ToolSearch found no matching deferred tools. All docs were gathered via WebFetch against official HF model cards, GitHub READMEs, and Diffusers docs instead. The orchestrator may want to suggest enabling the context7 plugin for a future run.",
+    "Wan2.2 GGUF quant page (huggingface.co/city96/Wan2.2-TI2V-5B-gguf) returned HTTP 401 Unauthorized to WebFetch twice (both the model card and the /tree/main file listing) — could not extract per-quant file sizes for Wan2.2-TI2V-5B GGUF quants. This is a real gap for Q5/Q7; another angle or a follow-up with an authenticated tool (e.g. gh, or a direct curl with a token) should fill it.",
+    "SkyReels-V3 (huggingface.co/Skywork/SkyReels-V3) also returned HTTP 401 Unauthorized; SkyReels-V3 facts in this file (docs-035, docs-036) come from the GitHub README and a WebSearch snippet, not a directly fetched HF model card — parameter/license/VRAM specifics should be treated as medium confidence pending a card fetch via an authenticated tool.",
+    "No official minimum-VRAM statement was found on any fetched page for: Qwen-Image (base model, non-DiffSynth path), Qwen-Image-Edit-2509, FLUX.2-dev, FLUX.1-Kontext-dev, BAGEL-7B-MoT, LTX-Video exact GB figures, Step1X-Edit, HiDream-I1/E1, Chroma1-HD, Lumina-DiMOO, Emu3-Gen, Show-o2, SeedVR2 exact per-3B/7B-variant numbers, Real-ESRGAN, 4x-UltraSharp. These should be treated as unqualified/unknown rather than assumed low.",
+    "Total download size (GB) for a full offline install was only directly computed (via HF Hub API blob listing) for Qwen-Image (~57.95GB) and Wan2.2-TI2V-5B (~54.2GB, with an unresolved precision-duplication caveat). All other candidates lack a verified total-GB figure in this file — synthesis should not fabricate these numbers without either a Hub API pull or a stated figure from a model card.",
+    "FLUX.2-dev's exact download size, text-encoder identity/size, and VAE identity were not stated on the fetched model card (the code example referenced a 'remote text-encoder' without naming it) — a gap given FLUX.2-dev is also flagged as exceeding the plan's <30B-parameter constraint at 32B.",
+    "Emu3's single-checkpoint vs multi-checkpoint video capability (does the SAME weights file that generates images also generate video, or is that a separate Emu3 checkpoint?) was not fully resolved — flagged explicitly as caveat on docs-039. Needs a follow-up read of the BAAI/Emu3 GitHub repo (not just the Emu3-Gen HF card) to settle for Q1.",
+    "Show-o2's single-checkpoint-does-both-image-and-video claim is internally ambiguous per the fetched README wording (base checkpoints vs 'video suffix' checkpoints) — flagged as caveat on docs-040, unresolved for Q1's 'truly unified from one checkpoint' framing.",
+    "SUPIR, SeedVR2, Real-ESRGAN, and 4x-UltraSharp: exact model/download sizes in GB were not found for SUPIR or SeedVR2 on their GitHub READMEs (only VRAM figures for SUPIR, only H100 multi-GPU VRAM for SeedVR2); Real-ESRGAN has no stated parameter count or download size at all in its README.",
+    "LTX-Video 'version 2' (mentioned in the plan as '0.9.8 / 2') was not separately verified — only 0.9.8 facts were captured from the fetched HF model card; a distinct 'LTX-Video 2' release was not confirmed or refuted in this pass.",
+    "Wan 2.5/2.7 (whether weights are open) was not investigated in this docs pass — assigned primarily to the web angle per the plan's Q3, but flagging here since docs angle also lists Q3 in scope and no HF/GitHub page for an open-weight Wan 2.5/2.7 was checked.",
+    "ComfyUI native node names / class names for most video and upscale models (Wan2.2, LTX-Video, HunyuanVideo, SeedVR2, SUPIR) were not individually confirmed beyond 'integrated/supported' statements — exact node class names would require fetching the ComfyUI wiki or each integration's own docs, not done in this pass due to scope/time.",
+    "Qwen-Image-Edit-2509's text encoder and VAE were not explicitly stated on its own model card (only inferred to match base Qwen-Image's Qwen2.5-VL-7B-Instruct + AutoencoderKLQwenImage by architecture family, not independently confirmed on the Edit-2509 card itself)."
+  ],
+  "search_log": [
+    "WebFetch https://huggingface.co/Qwen/Qwen-Image",
+    "WebFetch https://huggingface.co/Qwen/Qwen-Image-Edit-2509",
+    "WebFetch https://github.com/Wan-Video/Wan2.2",
+    "WebFetch https://huggingface.co/black-forest-labs/FLUX.2-dev",
+    "WebFetch https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev",
+    "WebFetch https://github.com/QwenLM/Qwen-Image",
+    "WebFetch https://huggingface.co/ByteDance-Seed/BAGEL-7B-MoT",
+    "WebFetch https://huggingface.co/Lightricks/LTX-Video",
+    "WebFetch https://huggingface.co/tencent/HunyuanVideo",
+    "WebFetch https://huggingface.co/THUDM/CogVideoX-5b",
+    "WebFetch https://huggingface.co/genmo/mochi-1-preview",
+    "WebFetch https://github.com/hpcaitech/Open-Sora",
+    "WebFetch https://github.com/Fanghua-Yu/SUPIR",
+    "WebFetch https://github.com/ByteDance-Seed/SeedVR",
+    "WebFetch https://github.com/xinntao/Real-ESRGAN",
+    "WebFetch https://github.com/VectorSpaceLab/OmniGen2",
+    "WebFetch https://huggingface.co/Alpha-VLLM/Lumina-DiMOO",
+    "WebFetch https://huggingface.co/BAAI/Emu3-Gen",
+    "WebFetch https://github.com/showlab/Show-o",
+    "WebFetch https://huggingface.co/stepfun-ai/Step1X-Edit",
+    "WebFetch https://huggingface.co/HiDream-ai/HiDream-I1-Full",
+    "WebFetch https://huggingface.co/lodestones/Chroma1-HD",
+    "WebFetch https://github.com/city96/ComfyUI-GGUF",
+    "WebFetch https://github.com/modelscope/DiffSynth-Studio",
+    "WebFetch https://github.com/SkyworkAI/SkyReels-V2",
+    "WebFetch https://huggingface.co/Skywork/SkyReels-V3 (FAILED 401)",
+    "WebFetch https://huggingface.co/city96/Wan2.2-TI2V-5B-gguf (FAILED 401)",
+    "WebFetch https://huggingface.co/QuantStack/Qwen-Image-GGUF",
+    "WebFetch https://github.com/mit-han-lab/nunchaku",
+    "WebFetch https://openmodeldb.info/models/4x-UltraSharp",
+    "WebSearch SkyReels-V3 model card parameters 2026 huggingface",
+    "WebFetch https://huggingface.co/city96/Wan2.2-TI2V-5B-gguf/tree/main (FAILED 401)",
+    "WebFetch https://github.com/SkyworkAI/SkyReels-V3",
+    "WebFetch https://huggingface.co/HiDream-ai/HiDream-E1-1",
+    "WebFetch https://huggingface.co/docs/diffusers/en/api/pipelines/qwenimage",
+    "WebFetch https://huggingface.co/docs/diffusers/en/api/pipelines/wan",
+    "WebFetch https://huggingface.co/api/models/Qwen/Qwen-Image?blobs=true",
+    "WebFetch https://huggingface.co/api/models/Wan-AI/Wan2.2-TI2V-5B?blobs=true"
+  ],
+  "notes": "context7 was NOT available (no resolve-library-id/get-library-docs tools found via ToolSearch); all extraction used WebFetch against primary sources (HF model cards, GitHub READMEs, Diffusers docs, HF Hub API for file sizes). Several HF pages 401'd (Wan2.2-TI2V-5B-gguf, SkyReels-V3 direct card) likely due to gated/auth-required repos; those facts were backfilled from GitHub READMEs or WebSearch snippets where possible and flagged lower-confidence. FLUX.2-dev (32B) exceeds the plan's <30B constraint. CogVideoX-5b's own card states 6B params, not 5B. Real-ESRGAN's '6B' anime model name is very likely a residual-block count, not 6 billion parameters — flagged explicitly to prevent a downstream fabrication."
+}

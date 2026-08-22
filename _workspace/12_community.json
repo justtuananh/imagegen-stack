@@ -1,0 +1,286 @@
+{
+  "angle": "community",
+  "questions_covered": ["Q3", "Q4", "Q5", "Q6", "Q8"],
+  "claims": [
+    {
+      "id": "comm-001",
+      "question": "Q6",
+      "claim": "Nunchaku (SVDQuant/INT4) Qwen-Image generates a 1024x1024 image in ~1.7s on an RTX 5090 with ~12GB peak VRAM, vs ~24GB for the BF16 pipeline. This is the single fastest reported Qwen-Image number found.",
+      "evidence": "HuggingFace/Nunchaku's own blog post benchmarking Nunchaku-Diffusers integration; specific numbers for RTX 5090, INT4 quant, 1024x1024, no step count given.",
+      "source_url": "https://huggingface.co/blog/nunchaku-diffusers",
+      "source_type": "forum",
+      "date": "2025",
+      "confidence": "medium",
+      "caveats": "unqualified on steps count; this is a vendor/project blog, not an independent community report, so treat as a single (credible but self-interested) data point rather than corroborated community consensus. No independent 5090 reproduction found in this research pass."
+    },
+    {
+      "id": "comm-002",
+      "question": "Q6",
+      "claim": "Wan 2.2 A14B GGUF on RTX 4090, 720p, 81 frames, LightX2V 4-step Lightning LoRA: Q4_K_M ~83s, Q5_K_M ~85s, Q8_0 ~95s generation time. VRAM peak reported as ~18GB (Q4_K_M), ~20GB (Q5_K_M), ~26GB (Q8_0).",
+      "evidence": "Aggregator blog post presenting a benchmark table claimed as author's own testing; no reddit/HN cross-corroboration found for these exact numbers.",
+      "source_url": "https://wan27.org/blog/wan-2-2-gguf-guide",
+      "source_type": "forum",
+      "date": "2026",
+      "confidence": "low",
+      "caveats": "Single source, content-marketing style blog, methodology not fully disclosed (author claims to have tested but doesn't show raw logs). Treat as a single anecdote, not a corroborated pattern. No RTX 5090 numbers given by this source."
+    },
+    {
+      "id": "comm-003",
+      "question": "Q6",
+      "claim": "Full-precision (no quant/offload optimization) Wan 2.1 T2V-14B benchmarked by SaladCloud: H100 80GB 480p=85s/720p=284s per 5s clip; A100 80GB 480p=170s/720p=523s; A40 48GB 480p=501s/720p=1083s; RTX 4090 24GB 480p=281s, 720p=OOM; RTX 3090 24GB=OOM at both resolutions without quantization/offload.",
+      "evidence": "SaladCloud benchmarking blog, cited via a practitioner GPU-guide aggregator; presented as a reproducible benchmark table with explicit GPU/VRAM/resolution axes.",
+      "source_url": "https://runaihome.com/blog/wan-video-local-ai-gpu-guide-2026/",
+      "source_type": "forum",
+      "date": "2026",
+      "confidence": "medium",
+      "caveats": "Original source is SaladCloud (cloud GPU vendor benchmark, not raw user forum post), reproduced secondhand by an aggregator blog; step count and precision (BF16 assumed) not explicitly stated in the excerpt. Confirms the core community pattern: unquantized Wan2.1/2.2-14B OOMs on 24GB cards at 720p without offload/quantization."
+    },
+    {
+      "id": "comm-004",
+      "question": "Q6",
+      "claim": "Same source reports quantized/optimized configs make 24GB cards usable: RTX 3090 running Wan2.2-Animate (quantized) does ~7s/frame at 480p (~9-10 min per 5s/81-frame clip) and ~18s/frame at 720p (~24 min/clip); RTX 5060 Ti 16GB with Wan2.2 FP8 + T5 text-encoder offload does 720p in 2-4 min per 5s clip; RTX 4070 12GB with GGUF + T5 offload does 480p in 18-22 min per clip.",
+      "evidence": "Same aggregator blog, distinct benchmark rows for consumer/prosumer cards using quantization + offload.",
+      "source_url": "https://runaihome.com/blog/wan-video-local-ai-gpu-guide-2026/",
+      "source_type": "forum",
+      "date": "2026",
+      "confidence": "low",
+      "caveats": "Single secondhand source; no step count, no exact quant level (\"quantized\" unspecified) for the 3090 row; RTX 5090 not covered at all by this source — a notable gap given the user's own hardware."
+    },
+    {
+      "id": "comm-005",
+      "question": "Q6",
+      "claim": "LTX-Video 13B on a 48GB RTX 4090 (workstation/48GB variant, not the standard 24GB 4090) generates 1216x704 at 88 frames in ~2 minutes 8 seconds with no CPU offload.",
+      "evidence": "User-reported benchmark in a GitHub issue on the official LTX-Video repo.",
+      "source_url": "https://github.com/Lightricks/LTX-Video/issues/166",
+      "source_type": "forum",
+      "date": "2025 (issue thread)",
+      "confidence": "medium",
+      "caveats": "This is a 48GB RTX 4090 (not the consumer 24GB 4090 the plan asks about) — do not conflate with a standard 4090. Single reporter, not independently corroborated in this pass."
+    },
+    {
+      "id": "comm-006",
+      "question": "Q3",
+      "claim": "Community-repeated claim: LTX-Video is roughly 3-4x faster than Wan 2.2 and HunyuanVideo at comparable settings on consumer GPUs, but is also the one most often called out for weaker motion/story coherence (\"slideshow with a voiceover\", no real motion continuity) compared to Wan.",
+      "evidence": "Speed claim from an aggregator comparison blog; quality complaint from a G2 reviewer of the LTX Studio product (adjacent commercial product built on the same model family, not exactly the open LTX-Video repo).",
+      "source_url": "https://localaimaster.com/blog/local-ai-video-generation",
+      "source_type": "forum",
+      "date": "2026",
+      "confidence": "low",
+      "caveats": "Speed multiplier and quality complaint come from two different, weakly-related sources; the quality complaint is about the LTX Studio commercial product, not confirmed to be about the open-weights LTX-Video 13B checkpoint specifically. Flag for cross-validation rather than treat as settled community consensus."
+    },
+    {
+      "id": "comm-007",
+      "question": "Q3",
+      "claim": "Original HunyuanVideo 13B needs 60-80GB VRAM at 720p (impractical on 24GB/32GB consumer cards without heavy quantization/offload); HunyuanVideo-1.5 (a separate, smaller 8.3B model released Nov 2025) targets 14GB+ consumer GPUs instead.",
+      "evidence": "Aggregator/vendor blog summary; consistent with widely known VRAM figures but not sourced to a specific forum thread with community pushback.",
+      "source_url": "https://www.spheron.network/blog/ai-video-generation-gpu-guide/",
+      "source_type": "forum",
+      "date": "2026",
+      "confidence": "low",
+      "caveats": "No direct forum thread with user-measured numbers found in this pass for original HunyuanVideo 13B on 24GB/32GB cards; only vendor/aggregator restatement."
+    },
+    {
+      "id": "comm-008",
+      "question": "Q4",
+      "claim": "SeedVR2 (3B) in ComfyUI: users report upscaling 768px source to 2K takes roughly 30-60 seconds on an RTX 4090 once models are cached locally; 24GB VRAM is recommended, 12GB+ workable with FP8 variant.",
+      "evidence": "Numz's SeedVR2_comfyUI HuggingFace repo README plus a fan tutorial blog; not a raw forum thread with multiple independent confirmations.",
+      "source_url": "https://huggingface.co/numz/SeedVR2_comfyUI/blob/main/README.md",
+      "source_type": "forum",
+      "date": "2025/2026",
+      "confidence": "low",
+      "caveats": "Unqualified: no resolution/frame count for the video-upscale case is given, only a single image-upscale figure; single-source, not cross-checked against a second independent user report."
+    },
+    {
+      "id": "comm-009",
+      "question": "Q4",
+      "claim": "SUPIR on a 24GB GPU has been demonstrated handling up to 3072x3072 tile-upscale output, but shared-VRAM spillover (falling back to system RAM via Windows shared memory) is a commonly cited cause of SUPIR becoming extremely slow, per practitioner troubleshooting notes.",
+      "evidence": "Furkan Gozukara's (widely cited SD community tutorial author) SUPIR wiki guide and related discussion notes.",
+      "source_url": "https://github.com/FurkanGozukara/Stable-Diffusion/wiki/Complete-Guide-to-SUPIR-Enhancing-and-Upscaling-Images-Like-in-Sci%E2%80%90Fi-Movies-on-Your-PC",
+      "source_type": "forum",
+      "date": "unclear, ongoing wiki",
+      "confidence": "low",
+      "caveats": "No specific seconds/minutes-per-image number found tied to (quant, resolution, offload) for SUPIR in this pass — treat as a qualitative pattern only (\"shared VRAM = slow\"), not a quantified benchmark. Flagged as a gap."
+    },
+    {
+      "id": "comm-010",
+      "question": "Q6",
+      "claim": "RTX 5090 (Blackwell, sm_120) requires PyTorch built for CUDA 12.8+ (many practitioners specifically use PyTorch nightly cu130) because stable PyTorch releases through at least mid-2025 lack sm_120 kernel support, producing 'CUDA error: no kernel image is available for execution on the device' on stable builds.",
+      "evidence": "Corroborated across multiple independent threads: NVIDIA developer forum thread, HuggingFace forum PTX-JIT thread, pytorch/pytorch GitHub issue #167244, lllyasviel/FramePack issue #550, lllyasviel/Fooocus issue #3862 — five independent repos/forums reporting the same root cause.",
+      "source_url": "https://github.com/pytorch/pytorch/issues/167244",
+      "source_type": "forum",
+      "date": "2025",
+      "confidence": "high",
+      "caveats": "This is a recurring, multi-source pattern (5+ independent issue threads), not a single loud complaint — the strongest-confirmed claim in this dataset. Exact minimum PyTorch/CUDA version to fully resolve it varies by report (some needed nightly cu130 as late as early 2026); official stable support timeline should be cross-checked against official PyTorch release notes."
+    },
+    {
+      "id": "comm-011",
+      "question": "Q6",
+      "claim": "SageAttention on RTX 5090 is broken/fragile in multiple distinct ways depending on stack: (a) prebuilt wheels crash with AttributeError referencing 'sageattention._qattn_sm89' because ops changed registration; (b) source builds fail to compile with LLVM errors ('sm_120 not a recognized processor') or C++ errors ('exception specification incompatible... sinpi', CUDA 12.8 vs libc math header conflict); (c) Windows builds additionally fail with MSVC C2872 'std ambiguous symbol'. No single documented fix resolves all cases; users are advised to match torch build / SageAttention wheel / triton-windows versions exactly within one venv, and SageAttention 1.0.6 is explicitly reported incompatible with RTX 50-series while 2.2 is the minimum usable version.",
+      "evidence": "Cross-corroborated across kijai/ComfyUI-HunyuanVideoWrapper#457, kijai/ComfyUI-KJNodes#692, thu-ml/SageAttention#291, thu-ml/SageAttention#244 (unresolved as of last check), plus a practitioner compatibility write-up.",
+      "source_url": "https://github.com/thu-ml/SageAttention/issues/244",
+      "source_type": "forum",
+      "date": "2025-2026",
+      "confidence": "high",
+      "caveats": "This is a real recurring pattern (4+ independent GitHub issues across different repos), but the specific fix that works varies by OS/Python/CUDA combo and several issues remain open/unresolved without a confirmed community fix — do not present as 'solved'. Some individual issues (e.g. #244) show zero community confirmation/resolution, so severity for a given exact config is uncertain."
+    },
+    {
+      "id": "comm-012",
+      "question": "Q6",
+      "claim": "xformers prebuilt PyPI wheels only support up to RTX 40-series; installing xformers into a Blackwell (RTX 5090) ComfyUI environment can silently downgrade/break the PyTorch nightly install. Recommended workaround: launch with --disable-xformers --use-pytorch-cross-attention, or strip xformers from every custom node's requirements.txt.",
+      "evidence": "Practitioner compatibility write-up (lilting.ch) plus consistent with the broader sm_120 wheel-breakage pattern seen across SageAttention/flash-attn issues.",
+      "source_url": "https://lilting.ch/en/articles/comfyui-blackwell-gpu-compatibility",
+      "source_type": "forum",
+      "date": "2026",
+      "confidence": "medium",
+      "caveats": "Single detailed write-up; not independently cross-confirmed by a second forum thread in this pass, though it is directionally consistent with other Blackwell breakage reports. Treat the workaround as reported-effective by one source, not proven community consensus."
+    },
+    {
+      "id": "comm-013",
+      "question": "Q6",
+      "claim": "Nunchaku itself fails to install on RTX 5090 with 'AssertionError: Unsupported SM 120' even after installing PyTorch nightly; official Nunchaku docs now tell Blackwell (50-series) users to install PyTorch >= 2.7 with CUDA >= 12.8, implying earlier guidance/wheels did not support the card out of the box.",
+      "evidence": "GitHub issue opened against mit-han-lab/nunchaku (also mirrored under nunchaku-ai/nunchaku) reporting the exact assertion error on RTX 5090, CUDA 12.0.140, Python 3.11, PyTorch nightly.",
+      "source_url": "https://github.com/mit-han-lab/nunchaku/issues/226",
+      "source_type": "forum",
+      "date": "2025-03-25",
+      "confidence": "medium",
+      "caveats": "This specific issue thread got zero follow-up comments/confirmations before being closed — it's a single reporter, not a corroborated pattern by itself, but it matches the broader, heavily-corroborated sm_120 wheel-breakage story (see comm-010, comm-011), so treat the general phenomenon as well-supported even though this individual thread is thin."
+    },
+    {
+      "id": "comm-014",
+      "question": "Q6",
+      "claim": "Practitioner consensus workaround stack for RTX 5090 in 2026 (in place of a fully-working SageAttention): Triton (triton-windows fork on Windows) + torch.compile + PyTorch's native SDPA attention. Community estimate: SageAttention, if it could be reliably built, would be roughly 35% faster than this SDPA-based fallback stack — implying 5090 users are currently leaving meaningful speed on the table.",
+      "evidence": "Practitioner compatibility write-up synthesizing multiple GitHub issues.",
+      "source_url": "https://lilting.ch/en/articles/comfyui-blackwell-gpu-compatibility",
+      "source_type": "forum",
+      "date": "2026",
+      "confidence": "low",
+      "caveats": "The '35% faster' figure is a single-source estimate, not independently measured/confirmed elsewhere in this pass. Treat as an informed guess by one practitioner rather than a benchmarked fact."
+    },
+    {
+      "id": "comm-015",
+      "question": "Q5",
+      "claim": "Sentiment is split by use case, not a clean winner: ComfyUI is favored by the majority of hobbyist/enthusiast practitioners for its node-based flexibility across complex multi-model workflows (image+video+upscale in one graph), but is repeatedly criticized for breaking on updates (frontend/custom-node version mismatches causing nodes to silently fail) and for being awkward to serve as a production API. Diffusers (raw) is reported by some users as 10-15x slower than ComfyUI out of the box for the same model/resolution, until users manually add enable_model_cpu_offload()/enable_vae_tiling(), after which Diffusers can match or, with torch.compile, reportedly exceed ComfyUI throughput for production batch inference (aggregator claim: 2-3x higher throughput than ComfyUI in a batch-serving context).",
+      "evidence": "HuggingFace forum thread 'Why is diffusers so much slower than ComfyUI?' (original SDXL report: ~15s/it in Diffusers vs ~1s/it in ComfyUI, fixed by CPU offload) combined with a separate content-marketing comparison blog citing production throughput numbers; ComfyUI breakage corroborated by rgthree-comfy maintainer notes and Comfy-Org docs discussion.",
+      "source_url": "https://discuss.huggingface.co/t/why-is-diffusers-so-much-slower-than-comfyui/51145",
+      "source_type": "forum",
+      "date": "2023-08-17 (original thread), follow-ups through 2024-05-03",
+      "confidence": "medium",
+      "caveats": "The core Diffusers-vs-ComfyUI speed thread is about SDXL image generation in 2023, not the video/Qwen-Image models in this research — the underlying mechanism (offload not enabled by default in Diffusers) is a recurring, well-known pattern still cited by 2026 practitioner guides, but the exact old numbers should not be extrapolated to Wan2.2/Qwen-Image without a same-model reproduction. The production-throughput comparison numbers come from a single vendor-adjacent blog, not independently corroborated."
+    },
+    {
+      "id": "comm-016",
+      "question": "Q5",
+      "claim": "WanGP (Wan2GP) is preferred by users who want a simpler, no-node, click-and-go UI that automates VRAM/offload management for Wan-family video models, at the cost of ComfyUI's flexibility and smaller community/plugin ecosystem; it is positioned by comparison articles as the 'beginner' choice vs ComfyUI's 'power user' choice.",
+      "evidence": "Comparison blog (Frank's World of Data Science & AI) summarizing both tools' tradeoffs.",
+      "source_url": "https://www.franksworld.com/2026/04/30/wan2gp-vs-comfyui-the-ultimate-showdown-in-local-ai-video-platforms/",
+      "source_type": "forum",
+      "date": "2026-04-30",
+      "confidence": "low",
+      "caveats": "Single comparison-blog source, not a forum thread with multiple independent users weighing in; treat as one informed opinion rather than measured community sentiment distribution."
+    },
+    {
+      "id": "comm-017",
+      "question": "Q5",
+      "claim": "Air-gapped/offline ComfyUI installs face two recurring, distinct pain points reported by practitioners: (1) ComfyUI-Manager and many custom nodes assume internet access to resolve missing nodes/models and must be explicitly set to an 'offline' network mode to stop trying to phone home; (2) the underlying huggingface_hub library's HF_HUB_OFFLINE=1 environment variable has been reported unreliable at fully preventing network calls, with local_files_only being cited as the more dependable alternative — meaning a naive 'set one env var and go offline' approach can still leak network calls in a supposedly air-gapped bundle.",
+      "evidence": "ComfyUI-Manager documentation/GitHub plus a HuggingFace diffusers GitHub issue (#6168) on offline-mode reliability, and a qdrant/fastembed issue showing the same HF_HUB_OFFLINE unreliability pattern in an adjacent HF-hub-consuming project.",
+      "source_url": "https://github.com/huggingface/diffusers/issues/6168",
+      "source_type": "forum",
+      "date": "ongoing",
+      "confidence": "medium",
+      "caveats": "Corroborated across two different projects consuming the same huggingface_hub library (diffusers and fastembed), which strengthens the pattern as a library-level issue rather than a one-off bug, but neither source is specifically about ComfyUI's own model-loading path — extrapolation to ComfyUI's exact behavior is reasonable but not directly confirmed by a ComfyUI-specific thread in this pass."
+    },
+    {
+      "id": "comm-018",
+      "question": "Q5",
+      "claim": "Custom-node dependency conflicts are a widely and repeatedly reported cause of broken ComfyUI installs: nodes bring their own Python package requirements that can conflict with other installed nodes, and frontend/API updates to core ComfyUI break specific popular node packs (e.g., rgthree-comfy's Context/Config nodes broke after a core update, requiring the maintainer to advise reverting to an older ComfyUI commit as a stopgap).",
+      "evidence": "ComfyUI official troubleshooting docs, rgthree-comfy GitHub issue tracker commentary, and Comfy-Org docs PR discussion, all describing the same class of breakage independently.",
+      "source_url": "https://docs.comfy.org/troubleshooting/custom-node-issues",
+      "source_type": "forum",
+      "date": "ongoing",
+      "confidence": "high",
+      "caveats": "This is a chronic, structural pattern acknowledged even in ComfyUI's own docs (not just user complaints), making it a high-confidence 'known and repeated' problem rather than a one-off. Directly relevant to the air-gapped bundle requirement: a frozen, pre-vetted custom-node set is necessary since online auto-update/auto-resolve is not viable offline."
+    },
+    {
+      "id": "comm-019",
+      "question": "Q6",
+      "claim": "Wan2.2-Lightning (the official 4-step distilled/speedup LoRA) is reported by multiple users as degrading motion quality relative to the equivalent Wan 2.1 Lightning LoRA and relative to full-step Wan 2.2: 'kills the motion', video looks like 'a live wallpaper' (near-static), described by at least one user as 'just totally broken' when applied to the high-noise expert model. At least 4-5 independent commenters on the official HF discussion confirm the motion problem.",
+      "evidence": "Official lightx2v/Wan2.2-Lightning HuggingFace discussion thread #5, multi-user thread with several independent confirmations plus official-team acknowledgement and a documentation update.",
+      "source_url": "https://huggingface.co/lightx2v/Wan2.2-Lightning/discussions/5",
+      "source_type": "forum",
+      "date": "2025 (thread ongoing)",
+      "confidence": "high",
+      "caveats": "Multiple independent confirmations (recurring pattern, not one angry post) — but disagreement remains on the fix: the officially recommended fix (Euler scheduler, shift=5, CFG=1, 4 steps) was reported by one user as still producing 'very blurry not finished output', while another user claims a 3-sampler chain resolves it and others suggest manual LoRA-strength/CFG tuning (0.6-0.8 strength on high-noise model + 1.0 on low-noise model, CFG 2-3.5 high / CFG 1 low, 8 total steps: 4 high + 4 low) as a community-derived workaround. No single fix has full consensus."
+    },
+    {
+      "id": "comm-020",
+      "question": "Q6",
+      "claim": "Qwen-Image-Edit-2509 GGUF quantization below Q5 (i.e. Q2/Q3/Q4 variants) originally exhibited a distinctive 'ghosting' artifact: around 70% into denoising, the model would start stacking/overlaying the first input (reference) image onto the output, producing partial duplication, color banding, slight unwanted zoom, and duplicated objects (e.g., doubled necklaces). Roughly 8+ independent users on the official QuantStack GGUF discussion confirmed this pattern; Q5 and above did not show the ghosting (only minor residual shadowing).",
+      "evidence": "QuantStack/Qwen-Image-Edit-2509-GGUF Hugging Face discussion #6, multi-user thread named contributors (Able2, renlianfu, Joly0, gxbsyxh, KulerRuler and others).",
+      "source_url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-2509-GGUF/discussions/6",
+      "source_type": "forum",
+      "date": "reported before 2025-10-18, fixed 2025-10-18",
+      "confidence": "high",
+      "caveats": "This bug was subsequently fixed: on 2025-10-18 the GGUF publisher released updated Q2_K/Q3_K_M/Q3_K_S/Q4_0/Q4_1/Q4_K_S/Q4_K_M files using a 'keep first and last transformer blocks in high precision' technique that resolved the ghosting. So the specific artifact described is now historical for anyone using post-Oct-2025 GGUF files — but it is a good illustration of how thin community QA can be around a fast-moving GGUF ecosystem, and users on older cached GGUF files may still hit it."
+    },
+    {
+      "id": "comm-021",
+      "question": "Q6",
+      "claim": "General Wan 2.2 GGUF quality-vs-quant sentiment (repeated across multiple secondary sources, not a single primary forum thread found in this pass): Q8_0 is described as visually indistinguishable from the FP8-scaled checkpoint for most 480p-720p use, and the perceptible 'quality cliff' is described as occurring between Q5_K_M and Q4_K_M rather than between Q8_0 and Q5_K_M.",
+      "evidence": "Restated consistently across two independent aggregator/guide sources (wan27.org and a separate 'GGUF quantization explained' guide), though neither cites a primary named forum thread.",
+      "source_url": "https://bmdpat.com/blog/gguf-quantization-q4-q5-q8-explained-2026",
+      "source_type": "forum",
+      "date": "2026",
+      "confidence": "low",
+      "caveats": "Both sources make the same claim but neither is a primary community thread with visible before/after image comparisons or named users — this looks like received wisdom that may trace back to a single original source repeated by content blogs. Should be verified by cross-validator against an image-comparison-based primary source if possible; do not present as independently double-confirmed."
+    },
+    {
+      "id": "comm-022",
+      "question": "Q8",
+      "claim": "There is essentially no direct community evidence found (Reddit, forums, blogs) of anyone testing Qwen-Image or Qwen-Image-Edit specifically for Vietnamese-diacritic text rendering. The closest and most relevant data point is a GitHub issue on the official Qwen-Image repo where a user tested Polish (also Latin-script-with-diacritics) and documented systematic failures: misspelled/garbled words, incorrect or missing diacritics, letters swapped or merged with look-alike/random glyphs, and literal '/n' characters rendered instead of actual line breaks. The issue got no official response confirming or denying broader non-CJK/non-English diacritic support, and contains zero Vietnamese-specific testing.",
+      "evidence": "QwenLM/Qwen-Image GitHub issue #161, opened by a user testing Polish text prompts ('Witaj szkoło. /n Jak się dzisiaj czujesz?').",
+      "source_url": "https://github.com/QwenLM/Qwen-Image/issues/161",
+      "source_type": "forum",
+      "date": "2025-09-30",
+      "confidence": "low",
+      "caveats": "This is evidence by analogy (Polish, not Vietnamese) and a single reporter with no confirmations or official reply visible. It should NOT be treated as proof Vietnamese fails the same way — Vietnamese diacritics (tone marks + vowel modifiers) are a different and in some ways harder case than Polish's simpler diacritic set, so if anything this suggests Vietnamese risk is at least as high, but this is inference, not a direct test. This is the single biggest evidence gap in the whole community angle — flagged in gaps below."
+    },
+    {
+      "id": "comm-023",
+      "question": "Q8",
+      "claim": "Independent, non-vendor testing of Qwen-Image's text-rendering claims (a blog author's own hands-on test, published shortly after the model's August 2025 release) covered only Chinese and English text, not any Latin-diacritic language. The author's overall verdict was that the rendered text has an 'uncanny valley' look — 'looks like it's the same font photoshopped into the image' — attributed to the model's synthetic-text training pipeline, and concluded Qwen-Image is 'a solid choice for text rendering, for an open model' but still behind closed models like gpt-image-1 for fine text detail/style consistency.",
+      "evidence": "Independent blog test (Tigris Data) explicitly testing text rendering claims with concrete prompts and screenshots described.",
+      "source_url": "https://www.tigrisdata.com/blog/qwen-image/",
+      "source_type": "forum",
+      "date": "2025-08-07",
+      "confidence": "medium",
+      "caveats": "Directly relevant to overall Qwen-Image text-rendering trustworthiness (medium confidence, single independent tester) but explicitly does NOT test Vietnamese or any diacritic language — cited here to show that even the best independent write-up found stops short of the exact test the user needs."
+    },
+    {
+      "id": "comm-024",
+      "question": "Q8",
+      "claim": "Marketing/vendor claims that Qwen-Image supports '26+ languages' for prompt understanding do not consistently name Vietnamese in the language lists actually enumerated (one prompting-guide source explicitly lists English, Chinese, Japanese, Korean, Spanish, French, German, Portuguese and 'others' without naming Vietnamese specifically), and none of the sources found discuss diacritic/accent rendering quality at all.",
+      "evidence": "Vendor/affiliate prompting guide.",
+      "source_url": "https://piapi.ai/blogs/creating-in-your-own-language-a-practical-guide-to-qwen-image-api-26-langauge-support",
+      "source_type": "forum",
+      "date": "2026",
+      "confidence": "low",
+      "caveats": "Absence of an explicit Vietnamese mention in one marketing list is weak negative evidence, not proof of unsupported/poor Vietnamese handling — the 'and others' catch-all could include it. This claim exists mainly to document that the community/marketing layer has not substantively addressed the question either way."
+    }
+  ],
+  "sentiment_overview": {
+    "rtx_5090_blackwell": "Strong, multi-source, repeated majority sentiment (5090 owners across at least 6 independent GitHub repos/issue trackers): the 5090/Blackwell (sm_120) launch-era software stack is genuinely painful — stable PyTorch, SageAttention, xformers, and Nunchaku all had documented breakage, and fixes require pinning specific nightly/cu12.8+ combinations that change over time and sometimes remain unresolved months later. No dissenting 'it just works' voices were found for the early-2025-through-2026 window; sentiment is close to unanimous that 5090 required extra, non-trivial setup work compared to 40-series/30-series.",
+    "wan22_lightning_lora": "Majority of commenters on the official discussion report the 4-step Lightning speedup LoRA visibly hurts motion quality, but there is real disagreement on the fix — no single workaround has consensus, several tuning approaches are each reported as 'the solution' by different individual users.",
+    "qwen_image_gguf_quant": "Recurring, multi-user (8+) confirmed pattern that low GGUF quants (Q2-Q4, pre-Oct-2025 builds) produced visible ghosting artifacts on Qwen-Image-Edit-2509; this was subsequently patched by the GGUF publisher, so current sentiment for up-to-date files should be more positive, though this research pass did not find fresh post-fix community confirmation.",
+    "comfyui_vs_diffusers": "Split by audience: hobbyists/workflow-builders favor ComfyUI for flexibility despite update breakage; those building production/batch pipelines report ComfyUI's API/serving model as a weak point and prefer Diffusers (once offload is manually configured) or dedicated serving frameworks. No dominant single winner in the sources found.",
+    "vietnamese_text_rendering": "Evidence is thin to the point of being essentially absent. No community source found that directly tests Vietnamese diacritics in Qwen-Image or any other candidate model. The nearest proxy (Polish diacritics, a different but related Latin-script case) failed in a documented GitHub issue with no official resolution. This should be treated as an open, unverified risk, not a confirmed capability or a confirmed failure, for Vietnamese specifically."
+  },
+  "gaps": [
+    "No direct, dated user report found of Wan 2.2 T2V-A14B or I2V-A14B running on an actual RTX 5090 (32GB) with a specific (quant, resolution, steps, LoRA, offload) tuple and a specific seconds-per-clip number — this is the single most important missing data point given the user owns a 5090. All 5090 numbers found were for Wan2.2-Animate (a different, gated task) or unspecified quant.",
+    "No independent (non-vendor) reproduction of the Nunchaku Qwen-Image 1.7s/image RTX 5090 claim from Nunchaku's own blog — worth flagging to the cross-validator for a second-source check.",
+    "No Vietnamese-language test of Qwen-Image text rendering (or any candidate model) found anywhere in community/forum content searched. This is a real, unresolved gap and should be flagged prominently in the final report — the user's core requirement (Vietnamese diacritics rendering) has essentially zero direct evidence either way from practitioners.",
+    "No forum/community evidence found specifically for Wan 2.5/2.7 (if open-weights) running locally — searches returned mostly closed/API-only commercial references; unclear whether an open, locally-runnable Wan 2.5/2.7 checkpoint exists at all as of this research date, which the docs/web angles should confirm.",
+    "SUPIR and SeedVR2 community sentiment was found only in scattered form (tutorial/wiki pages, not multi-user forum debates) — could not establish majority-vs-dissent sentiment distribution for either upscaler the way the plan requests.",
+    "Reddit itself (r/StableDiffusion, r/comfyui, r/LocalLLaMA — the subreddits explicitly named in the task) could not be searched or fetched directly: the WebSearch tool's domain filter rejected reddit.com as inaccessible to its crawler, and general web search returned almost no reddit.com URLs in results (reddit's own search-indexing/robots posture appears to block this). All 'forum' sources gathered are GitHub issues/discussions, HuggingFace community discussions, Hacker News, and independent blogs instead. This is a structural tool limitation, not a topic gap, but it means the specific subreddits requested were not directly covered — recommend a follow-up pass with a tool/agent that has genuine Reddit access if that source is considered essential.",
+    "Could not verify with a primary source the oft-repeated claim that the Wan 2.2 GGUF 'quality cliff' sits specifically between Q5_K_M and Q4_K_M — two secondary sources repeat it near-verbatim without a visible primary thread, suggesting possible citation laundering from a single origin. Cross-validator should treat this specific claim skeptically until a primary source is found."
+  ]
+}

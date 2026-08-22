@@ -1,0 +1,941 @@
+{
+  "results": [
+    {
+      "id": "t2i_01",
+      "task": "T2I",
+      "prompt_key": "base_portrait",
+      "vi": "Chân dung áo dài đỏ, tường vàng",
+      "check": "1 người, áo dài đỏ, ánh sáng cửa sổ bên trái",
+      "image": "t2i_01.png",
+      "seconds": 85.302,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "t2i_02",
+      "task": "T2I",
+      "prompt_key": "base_product",
+      "vi": "Ảnh sản phẩm chai nước mắm",
+      "check": "1 chai, nhãn nâu, nền trắng, bóng đổ nhẹ",
+      "image": "t2i_02.png",
+      "seconds": 77.673,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "t2i_03",
+      "task": "T2I",
+      "prompt_key": "base_sapa",
+      "vi": "Ruộng bậc thang Sa Pa mùa lúa chín",
+      "check": "bậc thang vàng, mây dưới thung lũng, 1 nhà sàn",
+      "image": "t2i_03.png",
+      "seconds": 77.915,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "t2i_04",
+      "task": "T2I",
+      "prompt_key": "base_cafe",
+      "vi": "Quán cà phê vỉa hè, 3 ghế đỏ 1 bàn xanh",
+      "check": "ĐÚNG 3 ghế đỏ + 1 bàn xanh, không người",
+      "image": "t2i_04.png",
+      "seconds": 80.503,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "t2i_05",
+      "task": "T2I",
+      "prompt_key": "base_cat",
+      "vi": "Mèo mướp trên xe Honda cũ trong hẻm",
+      "check": "mèo xám, xe xanh, hẻm gạch, nắng xiên",
+      "image": "t2i_05.png",
+      "seconds": 81.104,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "t2i_06",
+      "task": "T2I",
+      "prompt_key": "base_market",
+      "vi": "Chợ nổi Cái Răng, xuồng chở xoài",
+      "check": "1 xuồng, xoài vàng, 1 người đội nón lá",
+      "image": "t2i_06.png",
+      "seconds": 84.437,
+      "error": null,
+      "score": {
+        "instruction": 0.5,
+        "preserve": 1,
+        "quality": 1,
+        "note": "qua trong giong cam/quyt hon la xoai (hinh tron thay vi bau duc); noi dung con lai (xuong, non la, canh cho noi) dung"
+      }
+    },
+    {
+      "id": "t2i_07",
+      "task": "T2I",
+      "prompt_key": "base_beach",
+      "vi": "Bãi biển Mỹ Khê, 2 ghế bố + dù",
+      "check": "ĐÚNG 2 ghế bố trắng, 1 dù, không người",
+      "image": "t2i_07.png",
+      "seconds": 77.088,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "loc_01",
+      "task": "LocalEdit",
+      "inputs": [
+        "base_portrait"
+      ],
+      "instruction": "Change the color of her ao dai from red to royal blue. Keep her face, hair, pose, the wall and the lighting exactly the same.",
+      "vi": "Đổi áo dài đỏ → xanh",
+      "check": "áo xanh, mặt/tóc/tường không đổi",
+      "image": "loc_01.png",
+      "seconds": 49.63,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "loc_02",
+      "task": "LocalEdit",
+      "inputs": [
+        "base_cat"
+      ],
+      "instruction": "Remove the cat completely. The motorbike seat where it was sitting should look natural and empty. Keep everything else exactly the same.",
+      "vi": "Xóa con mèo",
+      "check": "không còn mèo, yên xe liền lạc, nền không đổi",
+      "image": "loc_02.png",
+      "seconds": 41.907,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "loc_03",
+      "task": "LocalEdit",
+      "inputs": [
+        "base_cafe"
+      ],
+      "instruction": "Add one glass of Vietnamese iced milk coffee on the blue table. Keep the three red chairs, the table, and the background exactly the same.",
+      "vi": "Thêm 1 ly cà phê sữa đá lên bàn",
+      "check": "đúng 1 ly trên bàn, 3 ghế giữ nguyên",
+      "image": "loc_03.png",
+      "seconds": 41.91,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 0,
+        "quality": 1,
+        "note": "the them 1 ghe: 3->4 ghe thay vi giu nguyen 3"
+      }
+    },
+    {
+      "id": "loc_04",
+      "task": "LocalEdit",
+      "inputs": [
+        "base_product"
+      ],
+      "instruction": "Change the bottle's paper label from brown to dark green. Keep the bottle shape, the liquid, the wooden table and the white background exactly the same.",
+      "vi": "Đổi nhãn chai nâu → xanh lá",
+      "check": "chỉ nhãn đổi màu, chai/bàn/nền không đổi",
+      "image": "loc_04.png",
+      "seconds": 41.865,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "loc_05",
+      "task": "LocalEdit",
+      "inputs": [
+        "base_sapa"
+      ],
+      "instruction": "Replace the small stilt house with a large old tree. Keep the terraces, the clouds and the lighting exactly the same.",
+      "vi": "Thay nhà sàn bằng cây cổ thụ",
+      "check": "nhà sàn biến mất, có cây, ruộng/mây không đổi",
+      "image": "loc_05.png",
+      "seconds": 41.928,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "loc_06",
+      "task": "LocalEdit",
+      "inputs": [
+        "base_market"
+      ],
+      "instruction": "Change the color of the woman's conical hat (non la) to bright yellow. Keep the boat, the mangoes, the other boats and the lighting exactly the same.",
+      "vi": "Đổi nón lá → vàng",
+      "check": "chỉ nón đổi màu, xuồng/xoài không đổi",
+      "image": "loc_06.png",
+      "seconds": 41.719,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "loc_07",
+      "task": "LocalEdit",
+      "inputs": [
+        "base_beach"
+      ],
+      "instruction": "Add one red beach ball on the sand between the two chairs. Keep the two white chairs, the umbrella and the sunset sky exactly the same.",
+      "vi": "Thêm 1 quả bóng biển đỏ",
+      "check": "đúng 1 quả bóng, ĐÚNG 2 ghế giữ nguyên",
+      "image": "loc_07.png",
+      "seconds": 41.656,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "loc_08",
+      "task": "LocalEdit",
+      "inputs": [
+        "base_sapa"
+      ],
+      "instruction": "Remove the clouds completely, leaving a clear sky. Keep the terraces, the stilt house and the lighting exactly the same.",
+      "vi": "Xóa mây, trời quang",
+      "check": "không còn mây, ruộng/nhà sàn không đổi",
+      "image": "loc_08.png",
+      "seconds": 41.765,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "loc_09",
+      "task": "LocalEdit",
+      "inputs": [
+        "base_beach"
+      ],
+      "instruction": "Change the umbrella color from straw/tan to bright red. Keep the two chairs, the sand and the sunset sky exactly the same.",
+      "vi": "Đổi dù nâu → đỏ",
+      "check": "chỉ dù đổi màu, 2 ghế/cảnh không đổi",
+      "image": "loc_09.png",
+      "seconds": 41.678,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "glo_01",
+      "task": "GlobalEdit",
+      "inputs": [
+        "base_sapa"
+      ],
+      "instruction": "Change the season: the terraces are now flooded with water during the planting season, reflecting the sky like mirrors. Keep the same composition and viewpoint.",
+      "vi": "Mùa lúa chín → mùa nước đổ",
+      "check": "ruộng ngập nước phản chiếu, bố cục giữ nguyên",
+      "image": "glo_01.png",
+      "seconds": 41.535,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "glo_02",
+      "task": "GlobalEdit",
+      "inputs": [
+        "base_cafe"
+      ],
+      "instruction": "Make it night time with warm neon shop lights and wet pavement after rain. Keep the same chairs, table and composition.",
+      "vi": "Ban ngày → đêm mưa đèn neon",
+      "check": "trời tối, đèn neon, vỉa hè ướt, 3 ghế còn nguyên",
+      "image": "glo_02.png",
+      "seconds": 41.981,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 0.5,
+        "quality": 1,
+        "note": "dung chi dan dem+neon+uot, nhung 3->4 ghe"
+      }
+    },
+    {
+      "id": "glo_03",
+      "task": "GlobalEdit",
+      "inputs": [
+        "base_portrait"
+      ],
+      "instruction": "Convert to a black and white film photograph with fine grain and soft contrast. Keep the person, pose and composition identical.",
+      "vi": "Màu → đen trắng phim",
+      "check": "đen trắng có grain, người không đổi",
+      "image": "glo_03.png",
+      "seconds": 41.955,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "glo_04",
+      "task": "GlobalEdit",
+      "inputs": [
+        "base_cat"
+      ],
+      "instruction": "Turn the whole image into a watercolor painting with soft washes and visible paper texture. Keep the cat, the motorbike and the alley composition.",
+      "vi": "Chuyển phong cách màu nước",
+      "check": "phong cách màu nước rõ, nội dung giữ",
+      "image": "glo_04.png",
+      "seconds": 42.018,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "glo_05",
+      "task": "GlobalEdit",
+      "inputs": [
+        "base_product"
+      ],
+      "instruction": "Change the color grading to warm golden-hour tones with soft amber light. Keep the bottle, the table and the framing exactly the same.",
+      "vi": "Đổi tone màu ấm hoàng hôn",
+      "check": "tone ấm, chai/bàn không đổi",
+      "image": "glo_05.png",
+      "seconds": 41.896,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "glo_06",
+      "task": "GlobalEdit",
+      "inputs": [
+        "base_market"
+      ],
+      "instruction": "Change the time to a foggy early dawn with soft blue-grey light. Keep the same boat, mangoes and composition.",
+      "vi": "Sáng nắng → sáng sớm sương mù",
+      "check": "trời xám xanh có sương, xuồng/xoài giữ",
+      "image": "glo_06.png",
+      "seconds": 41.667,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "glo_07",
+      "task": "GlobalEdit",
+      "inputs": [
+        "base_beach"
+      ],
+      "instruction": "Turn the whole image into an oil painting style with visible brush strokes. Keep the two chairs, the umbrella and the composition.",
+      "vi": "Chuyển phong cách tranh sơn dầu",
+      "check": "phong cách sơn dầu rõ, 2 ghế + dù giữ",
+      "image": "glo_07.png",
+      "seconds": 41.685,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "glo_08",
+      "task": "GlobalEdit",
+      "inputs": [
+        "base_cat"
+      ],
+      "instruction": "Make it a rainy scene with wet reflections on the ground and visible rain streaks. Keep the cat, the motorbike and the alley composition.",
+      "vi": "Trời nắng → trời mưa",
+      "check": "có mưa + phản chiếu ướt, mèo/xe giữ",
+      "image": "glo_08.png",
+      "seconds": 41.712,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "glo_09",
+      "task": "GlobalEdit",
+      "inputs": [
+        "base_market"
+      ],
+      "instruction": "Convert to a black and white documentary photo style with high contrast. Keep the boat, the woman and the mangoes.",
+      "vi": "Màu → đen trắng phóng sự",
+      "check": "đen trắng tương phản cao, nội dung giữ",
+      "image": "glo_09.png",
+      "seconds": 41.736,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "str_01",
+      "task": "StructureEdit",
+      "inputs": [
+        "base_portrait"
+      ],
+      "instruction": "She turns her head to look to her left, in profile. Keep her face identity, her ao dai, the wall and the lighting the same.",
+      "vi": "Quay đầu nhìn sang trái",
+      "check": "đầu quay, mặt vẫn là cùng người",
+      "image": "str_01.png",
+      "seconds": 41.978,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 0.5,
+        "quality": 1,
+        "note": "quay dau dung, danh tinh kho xac nhan chac chan tu profile"
+      }
+    },
+    {
+      "id": "str_02",
+      "task": "StructureEdit",
+      "inputs": [
+        "base_cat"
+      ],
+      "instruction": "The cat stands up on all four legs and stretches its back. Keep the same cat, the same motorbike and the same alley.",
+      "vi": "Mèo đứng dậy vươn vai",
+      "check": "mèo đứng 4 chân, cùng mèo/xe",
+      "image": "str_02.png",
+      "seconds": 41.976,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "str_03",
+      "task": "StructureEdit",
+      "inputs": [
+        "base_cafe"
+      ],
+      "instruction": "There are now exactly five red plastic chairs around the table instead of three. Keep the same chairs style, table and background.",
+      "vi": "3 ghế → 5 ghế (đếm)",
+      "check": "ĐÚNG 5 ghế",
+      "image": "str_03.png",
+      "seconds": 41.958,
+      "error": null,
+      "score": {
+        "instruction": 0,
+        "preserve": 1,
+        "quality": 1,
+        "note": "muc tieu 5 ghe, ra 4 ghe — KHONG dat, cung la loi dem lap lai"
+      }
+    },
+    {
+      "id": "str_04",
+      "task": "StructureEdit",
+      "inputs": [
+        "base_product"
+      ],
+      "instruction": "Change the camera to a top-down view looking straight down at the bottle on the table. Keep the same bottle, table and white background.",
+      "vi": "Đổi góc máy nhìn từ trên xuống",
+      "check": "góc máy từ trên xuống",
+      "image": "str_04.png",
+      "seconds": 41.97,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 0.5,
+        "quality": 1,
+        "note": "goc may tu-tren-xuong THANH CONG (khac voi test rieng le truoc do that bai) nhung danh tinh chai kho xac nhan tu goc nay"
+      }
+    },
+    {
+      "id": "str_05",
+      "task": "StructureEdit",
+      "inputs": [
+        "base_portrait"
+      ],
+      "instruction": "Zoom out to a full-body shot: she is standing, and we see her whole ao dai down to her feet. Keep her identity, outfit, the wall and lighting.",
+      "vi": "Nửa người → toàn thân",
+      "check": "thấy toàn thân đến chân, cùng người",
+      "image": "str_05.png",
+      "seconds": 41.92,
+      "error": null,
+      "score": {
+        "instruction": 0.5,
+        "preserve": 1,
+        "quality": 1,
+        "note": "mo rong khung hinh mot phan, chua ro da thay het chan"
+      }
+    },
+    {
+      "id": "str_06",
+      "task": "StructureEdit",
+      "inputs": [
+        "base_cafe"
+      ],
+      "instruction": "There are now exactly two red plastic chairs around the table instead of three. Keep the same chair style, table and background.",
+      "vi": "3 ghế → 2 ghế (đếm, chiều giảm)",
+      "check": "ĐÚNG 2 ghế",
+      "image": "str_06.png",
+      "seconds": 41.712,
+      "error": null,
+      "score": {
+        "instruction": 0,
+        "preserve": 1,
+        "quality": 1,
+        "note": "muc tieu 2 ghe, ra 4 ghe - lap lai loi dem giong str_03/loc_03/glo_02 (mo hinh co xu huong ve lai so ghe mac dinh thay vi lam dung yeu cau dem)"
+      }
+    },
+    {
+      "id": "str_07",
+      "task": "StructureEdit",
+      "inputs": [
+        "base_market"
+      ],
+      "instruction": "Change the camera to a low angle looking slightly up at the boat. Keep the same boat, mangoes and the woman.",
+      "vi": "Đổi góc máy nhìn từ dưới lên",
+      "check": "góc máy thấp hướng lên, nội dung giữ",
+      "image": "str_07.png",
+      "seconds": 41.725,
+      "error": null,
+      "score": {
+        "instruction": 0,
+        "preserve": 1,
+        "quality": 1,
+        "note": "goc may KHONG doi so voi anh nen, van la goc ngang binh thuong, khong phai goc thap huong len nhu yeu cau"
+      }
+    },
+    {
+      "id": "str_08",
+      "task": "StructureEdit",
+      "inputs": [
+        "base_beach"
+      ],
+      "instruction": "Zoom in to a close-up of just the two chairs and the umbrella, cropping out the wide sea view. Keep the same chairs and umbrella style.",
+      "vi": "Toàn cảnh → cận 2 ghế + dù",
+      "check": "cận cảnh 2 ghế + dù, đúng kiểu dáng cũ",
+      "image": "str_08.png",
+      "seconds": 41.783,
+      "error": null,
+      "score": {
+        "instruction": 0,
+        "preserve": 1,
+        "quality": 1,
+        "note": "khong zoom/crop, khung hinh giu nguyen toan canh nhu anh goc, chua cat rieng 2 ghe+du nhu yeu cau"
+      }
+    },
+    {
+      "id": "str_09",
+      "task": "StructureEdit",
+      "inputs": [
+        "base_product"
+      ],
+      "instruction": "Rotate the camera to a three-quarter side angle instead of straight-on. Keep the same bottle, table and background.",
+      "vi": "Góc thẳng → góc 3/4 nghiêng",
+      "check": "góc nghiêng 3/4, cùng chai/bàn",
+      "image": "str_09.png",
+      "seconds": 41.674,
+      "error": null,
+      "score": {
+        "instruction": 0,
+        "preserve": 1,
+        "quality": 1,
+        "note": "goc may van thang (straight-on), KHONG doi sang goc 3/4 nghieng nhu yeu cau"
+      }
+    },
+    {
+      "id": "ref_01",
+      "task": "RefGen",
+      "inputs": [
+        "base_product"
+      ],
+      "instruction": "Generate a new photo of this exact same bottle placed on white sand at a tropical beach at sunset, with the sea in the background. Keep the bottle and its label identical.",
+      "vi": "Cùng chai → trên bãi biển",
+      "check": "chai + nhãn giống hệt, cảnh biển mới",
+      "image": "ref_01.png",
+      "seconds": 41.903,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "ref_02",
+      "task": "RefGen",
+      "inputs": [
+        "base_portrait"
+      ],
+      "instruction": "Generate a new photo of this same woman, same face and same ao dai, walking through a busy Vietnamese wet market holding a basket.",
+      "vi": "Cùng người → đi chợ",
+      "check": "cùng mặt + áo, cảnh chợ",
+      "image": "ref_02.png",
+      "seconds": 41.961,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "ref_03",
+      "task": "RefGen",
+      "inputs": [
+        "base_cat"
+      ],
+      "instruction": "Generate a new photo of this same cat, same fur pattern, lying on a grey sofa in a modern living room.",
+      "vi": "Cùng mèo → nằm sofa",
+      "check": "cùng vằn lông, sofa phòng khách",
+      "image": "ref_03.png",
+      "seconds": 41.943,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "ref_04",
+      "task": "RefGen",
+      "inputs": [
+        "base_sapa"
+      ],
+      "instruction": "Generate a new landscape with the same terraced composition and viewpoint, but as sand dunes in a desert at sunset.",
+      "vi": "Cùng bố cục → sa mạc",
+      "check": "bố cục bậc thang giữ, là sa mạc",
+      "image": "ref_04.png",
+      "seconds": 41.98,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "ref_05",
+      "task": "RefGen",
+      "inputs": [
+        "base_cafe"
+      ],
+      "instruction": "Generate a new photo in the same photographic style and color palette, but showing a Hoi An old-town street at night with hanging silk lanterns.",
+      "vi": "Cùng phong cách → phố Hội An đèn lồng",
+      "check": "phong cách/màu giống, nội dung Hội An",
+      "image": "ref_05.png",
+      "seconds": 42.013,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "ref_06",
+      "task": "RefGen",
+      "inputs": [
+        "base_market"
+      ],
+      "instruction": "Generate a new photo of this exact same boat with the same mangoes, docked at a wooden pier in the evening with string lights. Keep the boat and mango color identical.",
+      "vi": "Cùng xuồng → cập bến đêm đèn dây",
+      "check": "xuồng + xoài giống hệt, cảnh bến đêm mới",
+      "image": "ref_06.png",
+      "seconds": 41.806,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "ref_07",
+      "task": "RefGen",
+      "inputs": [
+        "base_beach"
+      ],
+      "instruction": "Generate a new photo of these same two white chairs and umbrella, but set up in a green garden instead of a beach. Keep the chairs and umbrella identical.",
+      "vi": "Cùng 2 ghế+dù → vườn cây xanh",
+      "check": "2 ghế + dù giống hệt, cảnh vườn mới",
+      "image": "ref_07.png",
+      "seconds": 41.736,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "ref_08",
+      "task": "RefGen",
+      "inputs": [
+        "base_cat"
+      ],
+      "instruction": "Generate a new photo of this same cat, same fur pattern, sitting on a wooden windowsill looking outside at rain.",
+      "vi": "Cùng mèo → ngồi bậu cửa sổ trời mưa",
+      "check": "cùng vằn lông, cảnh cửa sổ mưa",
+      "image": "ref_08.png",
+      "seconds": 41.791,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 0,
+        "quality": 1,
+        "note": "mau/van long meo hoan toan khac ban goc (xam trui -> nau vang co soc), khong giu duoc danh tinh meo"
+      }
+    },
+    {
+      "id": "mref_01",
+      "task": "MultiRef",
+      "inputs": [
+        "base_portrait",
+        "base_sapa"
+      ],
+      "instruction": "Place the woman from image 1 standing in the terraced rice field landscape of image 2, in the foreground. Keep her face, hair and ao dai exactly as in image 1, and match the morning light of image 2.",
+      "vi": "Cô gái (1) đứng giữa ruộng bậc thang (2)",
+      "check": "cùng người + áo, đúng cảnh Sa Pa",
+      "image": "mref_01.png",
+      "seconds": 69.457,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "mref_02",
+      "task": "MultiRef",
+      "inputs": [
+        "base_product",
+        "base_cafe"
+      ],
+      "instruction": "Place the bottle from image 1 on the blue table in the cafe scene of image 2. Keep the bottle and label identical, and keep the three red chairs of image 2.",
+      "vi": "Chai (1) đặt lên bàn quán (2)",
+      "check": "chai giống hệt, trên bàn xanh, 3 ghế còn",
+      "image": "mref_02.png",
+      "seconds": 69.318,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 0.5,
+        "quality": 1,
+        "note": "chai dung 100% nhung 3->4 ghe (lai loi dem)"
+      }
+    },
+    {
+      "id": "mref_03",
+      "task": "MultiRef",
+      "inputs": [
+        "base_cat",
+        "base_sapa"
+      ],
+      "instruction": "Place the cat from image 1 sitting on the edge of a rice terrace in the landscape of image 2. Keep the same cat fur pattern.",
+      "vi": "Mèo (1) ngồi ở ruộng bậc thang (2)",
+      "check": "cùng mèo, cảnh Sa Pa",
+      "image": "mref_03.png",
+      "seconds": 69.13,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "mref_04",
+      "task": "MultiRef",
+      "inputs": [
+        "base_portrait",
+        "base_cat"
+      ],
+      "instruction": "The woman from image 1 is holding the cat from image 2 in her arms, in the alley scene of image 2. Keep both the woman's face and the cat's fur pattern identical.",
+      "vi": "Cô gái (1) bế mèo (2) trong hẻm",
+      "check": "cùng người + cùng mèo",
+      "image": "mref_04.png",
+      "seconds": 69.366,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "mref_05",
+      "task": "MultiRef",
+      "inputs": [
+        "base_portrait",
+        "base_product"
+      ],
+      "instruction": "The woman from image 1 is holding the bottle from image 2 in her hand, presenting it to the camera, in front of the same yellow wall. Keep her face and the bottle label identical.",
+      "vi": "Cô gái (1) cầm chai (2) giới thiệu",
+      "check": "cùng người, chai + nhãn giống hệt",
+      "image": "mref_05.png",
+      "seconds": 69.272,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "mref_06",
+      "task": "MultiRef",
+      "inputs": [
+        "base_market",
+        "base_beach"
+      ],
+      "instruction": "Place the fruit boat from image 1 floating near the shore in the beach scene of image 2. Keep the boat and mangoes identical, and keep the two white chairs of image 2.",
+      "vi": "Xuồng xoài (1) trôi vào bãi biển (2)",
+      "check": "xuồng+xoài giống hệt, ĐÚNG 2 ghế còn",
+      "image": "mref_06.png",
+      "seconds": 68.981,
+      "error": null,
+      "score": {
+        "instruction": 0.5,
+        "preserve": 0,
+        "quality": 1,
+        "note": "thuyen thay the vi tri 1 trong 2 ghe thay vi dat them canh ca hai ghe, chi con 1 ghe"
+      }
+    },
+    {
+      "id": "mref_07",
+      "task": "MultiRef",
+      "inputs": [
+        "base_cat",
+        "base_market"
+      ],
+      "instruction": "Place the cat from image 1 sitting inside the fruit boat from image 2. Keep the same cat fur pattern and the same boat and mangoes.",
+      "vi": "Mèo (1) ngồi trong xuồng xoài (2)",
+      "check": "cùng mèo, cùng xuồng/xoài",
+      "image": "mref_07.png",
+      "seconds": 68.695,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    },
+    {
+      "id": "mref_08",
+      "task": "MultiRef",
+      "inputs": [
+        "base_portrait",
+        "base_beach"
+      ],
+      "instruction": "The woman from image 1 is sitting on one of the two white beach chairs from image 2, facing the sunset. Keep her face and ao dai identical, and keep both chairs and the umbrella of image 2.",
+      "vi": "Cô gái (1) ngồi ghế biển (2) ngắm hoàng hôn",
+      "check": "cùng người+áo, ĐÚNG 2 ghế+dù còn",
+      "image": "mref_08.png",
+      "seconds": 68.992,
+      "error": null,
+      "score": {
+        "instruction": 1,
+        "preserve": 1,
+        "quality": 1,
+        "note": null
+      }
+    }
+  ]
+}

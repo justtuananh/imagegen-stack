@@ -1,0 +1,257 @@
+{
+  "angle": "academic",
+  "claims": [
+    {
+      "id": "AC-01",
+      "question": "Q1",
+      "claim": "Wan2.1's arXiv paper (only Wan2.1, not Wan2.2) covers 1.3B and 14B dense video models; no dedicated Wan2.2 arXiv paper was found. Wan2.2's architectural details (MoE, TI2V-5B) exist only in the project's GitHub technical report/README, not a peer-reviewed or arXiv-hosted paper.",
+      "evidence": "arXiv 2503.20314 'Wan: Open and Advanced Large-Scale Video Generative Models' (Mar 2025) describes only 1.3B (8.19GB VRAM, self-reported) and 14B variants; no MoE, no 5B/27B mentioned. Wan2.2-specific MoE/TI2V-5B facts sourced from github.com/Wan-Video/Wan2.2 README, not arXiv.",
+      "source_url": "https://arxiv.org/abs/2503.20314",
+      "source_type": "paper",
+      "date": "2025-03",
+      "confidence": "high",
+      "caveats": "Gap: treat all Wan2.2-specific numbers below as sourced from the vendor's GitHub tech report, not a peer-reviewed arXiv paper — self-reported, not independently verified."
+    },
+    {
+      "id": "AC-02",
+      "question": "Q1/Q3",
+      "claim": "Wan2.2 uses a two-expert Mixture-of-Experts denoiser: a high-noise expert handles early/high-noise denoising steps (overall layout) and a low-noise expert handles later steps (detail refinement). Each expert is ~14B params -> 27B total, 14B active per step. Expert switching is a hard cutover at a fixed timestep threshold (t_moe, set at half the minimum signal-to-noise ratio of the schedule), not a per-step blend or learned router over both experts simultaneously.",
+      "evidence": "GitHub Wan2.2 technical report: 'high-noise expert for the early stages, focusing on overall layout; and a low-noise expert for the later stages, refining video details' with SNR-threshold-based switching.",
+      "source_url": "https://github.com/Wan-Video/Wan2.2",
+      "source_type": "paper",
+      "date": "2025-07",
+      "confidence": "medium",
+      "caveats": "Self-reported (vendor doc, not arXiv). Whether both 14B experts must be VRAM-resident simultaneously or can be swapped in/out between the two denoising phases is NOT explicitly stated in the primary source — this is the single most important open question for VRAM budgeting and needs docs/community-angle confirmation of actual implementation behavior (e.g. ComfyUI/Diffusers loading strategy)."
+    },
+    {
+      "id": "AC-03",
+      "question": "Q1",
+      "claim": "Wan2.2-TI2V-5B is described by the authors as a single dense (non-MoE) 5B model natively supporting both text-to-video and image-to-video within one unified checkpoint, using a high-compression Wan2.2-VAE (4x16x16 spatiotemporal compression, 4x32x32 total with patchification). It generates a 5s 720p video in <9 min on one consumer GPU (unspecified card/quant in that claim).",
+      "evidence": "'TI2V-5B... natively supports both text-to-video and image-to-video tasks within a single unified framework'; VAE compression ratio of 4x16x16 -> rate 64.",
+      "source_url": "https://github.com/Wan-Video/Wan2.2",
+      "source_type": "paper",
+      "date": "2025-07",
+      "confidence": "medium",
+      "caveats": "Self-reported, vendor doc not arXiv. Note TI2V-5B is video-in/video-out (text-to-video, image-to-video) — it does NOT emit a standalone still-image output modality distinct from video; 'unified' here means T2V+I2V under one video-diffusion checkpoint, not image-generation-and-video-generation as two separate output types from a shared trunk in the BAGEL/Emu3 sense."
+    },
+    {
+      "id": "AC-04",
+      "question": "Q1",
+      "claim": "BAGEL is a single decoder-only transformer trained on interleaved text/image/video/web data for both multimodal understanding AND image generation/editing from one checkpoint. It scores 0.88 on GenEval, beating FLUX.1-dev (0.82), SD3-Medium (0.74), Janus-Pro (0.80) and MetaQuery-XL (0.80) under the same eval protocol, but is itself beaten by OmniGen2 (0.95) and matched closely by UniWorld-V1 (0.84).",
+      "evidence": "'BAGEL... significantly outperforms open-source unified models in both multimodal generation and understanding'; GenEval 0.88 vs FLUX.1-dev 0.82, SD3-Medium 0.74, Janus-Pro 0.80.",
+      "source_url": "https://arxiv.org/abs/2505.14683",
+      "source_type": "paper",
+      "date": "2025-05",
+      "confidence": "medium",
+      "caveats": "Self-reported by authors (arXiv 2505.14683, 'Emerging Properties in Unified Multimodal Pretraining'). BAGEL's demonstrated generation output in this and follow-up papers is IMAGE only — no native video generation from the same checkpoint is claimed in the base paper; video-related capabilities described (future-frame prediction) are next-frame image prediction, not a video decoder."
+    },
+    {
+      "id": "AC-05",
+      "question": "Q1",
+      "claim": "Janus-Pro (DeepSeek-AI) unifies understanding and IMAGE generation only (no video) via decoupled visual encoding: a separate encoder path for understanding (SigLIP) vs generation, feeding one shared autoregressive transformer. Janus-Pro-7B scores GenEval 0.80, beating DALL-E 3 (0.67), SDXL (0.55), SD3-Medium (0.74), and its own smaller predecessor Janus (0.61).",
+      "evidence": "GenEval table: Janus-Pro-7B 0.80 > SD3-Medium 0.74 > DALL-E 3 0.67 > Janus 0.61 > SDXL 0.55 > DALL-E 2 0.52.",
+      "source_url": "https://arxiv.org/abs/2501.17811",
+      "source_type": "paper",
+      "date": "2025-01",
+      "confidence": "medium",
+      "caveats": "Self-reported by authors. No video generation capability in Janus-Pro."
+    },
+    {
+      "id": "AC-06",
+      "question": "Q1",
+      "claim": "OmniGen2 is a unified IMAGE model (T2I, instruction editing, in-context/subject-driven generation) that conditions a diffusion transformer on a frozen/lightly-adapted VLM's hidden states, using two SEPARATE (unshared) decoding pathways for text vs image rather than one shared weight space. It achieves GenEval 0.95 with only 4B trainable diffusion params (trained on 15M T2I pairs), beating BAGEL (0.88, 14B trainable, 1.6B-pair-scale data) and reportedly Qwen-Image on this specific benchmark.",
+      "evidence": "'two distinct decoding pathways for text and image modalities, utilizing unshared parameters'; GenEval 0.95 vs BAGEL 0.88, UniWorld-V1 0.84.",
+      "source_url": "https://arxiv.org/abs/2506.18871",
+      "source_type": "paper",
+      "date": "2025-06",
+      "confidence": "medium",
+      "caveats": "Self-reported. The architecture explicitly uses unshared parameters for text vs image decoding — this is evidence FOR the 'marketing over architectural unity' concern: 'unified' here means one training run/checkpoint routing to task-specific heads, not one shared representation. No video generation capability."
+    },
+    {
+      "id": "AC-07",
+      "question": "Q1",
+      "claim": "Emu3 (BAAI, 8B params) is trained purely via next-token prediction over a single discrete vocabulary that tokenizes text, image, AND video (via SBER-MoVQGAN tokenizer, 184,622 vocab), making it one of the few models where image and video generation genuinely share the same autoregressive weights and objective. It natively generates 5s/24fps video clips, infinitely extendable autoregressively, and claims image quality on par with SDXL/DALL-E 3/Midjourney-v5.2 on human eval (self-reported).",
+      "evidence": "'Emu3... trains a single transformer from scratch on a mixture of multimodal sequences'; 'capable of generating high-fidelity video via predicting the next token in a video sequence'; 8B params, 32 layers.",
+      "source_url": "https://arxiv.org/abs/2409.18869",
+      "source_type": "paper",
+      "date": "2024-09",
+      "confidence": "medium",
+      "caveats": "Self-reported by authors (BAAI). This is the strongest 'architecturally real' unified image+video case found (single weight set, single next-token objective across both modalities) rather than task-specific heads. However, independent reports (see caveats on successor Emu3.5, 2510.26583) note video output length/resolution remain well below specialist video diffusion models (Wan2.2, HunyuanVideo) — no head-to-head VBench number found for Emu3 itself; flagged as gap."
+    },
+    {
+      "id": "AC-08",
+      "question": "Q1",
+      "claim": "Show-o2 is architecturally unified across text, image, AND video: autoregressive next-token prediction for the language head, flow matching for a shared image/video 'flow head', built on a 3D causal VAE latent space with spatial(-temporal) fusion so image and video share the same representation and generation mechanism. The 2B variant reportedly outperforms Emu3 and VILA-U (both >6B) on some reported benchmarks; a 7B variant uses Qwen2.5-7B-Instruct as language backbone.",
+      "evidence": "'autoregressive modeling and flow matching... natively applied to the language head and flow head respectively, to facilitate text token prediction and image/video generation'; 2B model 'outperforms Show-1, Emu3, and VILA-U with more than 6B parameters' (unspecified benchmark subset).",
+      "source_url": "https://arxiv.org/abs/2506.15564",
+      "source_type": "paper",
+      "date": "2025-06",
+      "confidence": "medium",
+      "caveats": "Self-reported. No specific VBench numerical score for Show-o2 video output could be retrieved in this pass (search only returned qualitative 'competitive with CogVideoX / Step-Video-T2V' claims, no numbers) — gap. This is a genuine image+video-from-one-model architecture (like Emu3), stronger evidence of real unification than BAGEL/Janus-Pro/OmniGen2 which are image-only."
+    },
+    {
+      "id": "AC-09",
+      "question": "Q1",
+      "claim": "Lumina-DiMOO is a fully discrete-diffusion (not AR, not hybrid) unified model for T2I, image editing, subject-driven generation, inpainting, and image UNDERSTANDING — but has no claimed video generation/output capability. It reports SOTA-among-open-unified-models scores of POPE 87.4, SEED 83.1, MMMU 58.6, beating Show-o, VILA-U, Janus-Pro, and BAGEL on these understanding benchmarks (self-reported comparison table).",
+      "evidence": "'utilizing fully discrete diffusion modeling to handle inputs and outputs across various modalities'; POPE 87.4, SEED 83.1, MMMU 58.6 vs Show-o/VILA-U/Janus-Pro/BAGEL.",
+      "source_url": "https://arxiv.org/abs/2510.06308",
+      "source_type": "paper",
+      "date": "2025-10",
+      "confidence": "medium",
+      "caveats": "Self-reported. No video modality — confirms it should be scoped to Q2 (image gen+edit), not counted toward the 'unified image+video' Q1 shortlist."
+    },
+    {
+      "id": "AC-10",
+      "question": "Q1",
+      "claim": "SkyReels-V3 (arXiv 2601.17323, Jan 2026) is a VIDEO-only unified framework — it unifies three video generation paradigms (reference-image-to-video, video-to-video extension, audio-driven talking avatar) within one in-context-learning diffusion transformer, but is not a text-to-still-image generator. It should not be counted as an image+video unified model; it is a video specialist with multi-task video capability.",
+      "evidence": "'supports three core generative paradigms within a single architecture: reference images-to-video synthesis, video-to-video extension and audio-guided video generation.'",
+      "source_url": "https://arxiv.org/abs/2601.17323",
+      "source_type": "paper",
+      "date": "2026-01",
+      "confidence": "medium",
+      "caveats": "Self-reported (technical report, not clearly peer-reviewed). This directly corrects the plan's framing of SkyReels-V3 as an image+video unified candidate — per this primary source it is a video-generation-only multi-task model, image generation is not one of its stated modes."
+    },
+    {
+      "id": "AC-11",
+      "question": "Q1",
+      "claim": "An independent benchmark study (GapEval, arXiv 2602.02140) measuring cross-modal consistency across a range of unified multimodal models finds their unification is 'only surface-level... rather than deep cognitive convergence,' and that 'knowledge within UMMs often remains disjoint' with capability emergence unsynchronized across modalities — i.e., unified checkpoints frequently know something when asked in text but fail to render that same knowledge when asked to generate an image of it (or vice versa).",
+      "evidence": "'current models achieve only surface-level unification rather than deep cognitive convergence of the two'; 'knowledge within UMMs often remains disjoint.'",
+      "source_url": "https://arxiv.org/abs/2602.02140",
+      "source_type": "paper",
+      "date": "2026-02",
+      "confidence": "medium",
+      "caveats": "This is a third-party evaluation paper (not vendor self-report) — directly relevant to the 'architectural reality vs marketing' question, but abstract-only access; specific per-model numeric gap scores and the exact list of tested models were not retrievable in this pass (gap). Single study, not yet replicated."
+    },
+    {
+      "id": "AC-12",
+      "question": "Q2",
+      "claim": "Qwen-Image is a 20B-class model built from a Qwen2.5-VL semantic encoder feeding a Multimodal Diffusion Transformer (MMDiT) backbone, using MSRoPE for joint text/image positional encoding, RMSNorm QK-normalization, bias-free modulation, and SwiGLU activations for training stability. It reports GenEval 0.91 after an RL post-training stage, vs FLUX.1's 0.66, claiming first place across 9 public T2I benchmarks (self-reported).",
+      "evidence": "'couples a Qwen3-VL[Qwen2.5-VL in v1] encoder with a Multimodal Diffusion Transformer (MMDiT) backbone... MSRoPE for cross-modal positional encoding... RMSNorm QK normalization, bias-free modulation, and SwiGLU'; GenEval 0.91 (post-RL) vs FLUX.1 0.66.",
+      "source_url": "https://arxiv.org/abs/2508.02324",
+      "source_type": "paper",
+      "date": "2025-08-04",
+      "confidence": "medium",
+      "caveats": "Self-reported tech report (Qwen Team). Exact parameter count (20B) is stated in secondary summaries citing the report, not independently re-verified against the primary PDF table in this pass — flagged low-severity gap."
+    },
+    {
+      "id": "AC-13",
+      "question": "Q2/Q8",
+      "claim": "Qwen-Image's text-rendering solution is a progressive curriculum (data pipeline: collection -> filtering -> annotation -> synthesis -> balancing) that trains from non-text-rendering, to simple text, to complex paragraph-level text. The tech report explicitly claims strength in alphabetic languages (English) and logographic languages (Chinese) — it does NOT mention Vietnamese, other Latin-diacritic scripts, or any explicit evaluation on Vietnamese text-in-image in the abstract/architecture sections reachable in this pass.",
+      "evidence": "'performs exceptionally well in alphabetic languages such as English, but also achieves remarkable progress on more challenging logographic languages like Chinese'; progressive training 'starts with non-text-to-text rendering, evolves from simple to complex textual inputs, and gradually scales up to paragraph-level descriptions.'",
+      "source_url": "https://arxiv.org/abs/2508.02324",
+      "source_type": "paper",
+      "date": "2025-08-04",
+      "confidence": "medium",
+      "caveats": "GAP: the primary tech report's publicly reachable text does not confirm or deny Vietnamese/diacritic coverage — this must be verified empirically (community/web angle) rather than assumed from the 'multilingual' framing, since the two languages explicitly named are English and Chinese only."
+    },
+    {
+      "id": "AC-14",
+      "question": "Q2",
+      "claim": "Qwen-Image-Edit's editing mechanism feeds the source image through TWO separate encoders in parallel — Qwen2.5-VL (for semantic/instruction-following representation) and the VAE encoder (for pixel-level reconstructive fidelity) — and trains with a multi-task objective mixing text-to-image, text-image-to-image (editing), and image-to-image reconstruction, explicitly to balance semantic-instruction adherence against visual/structural fidelity to the source.",
+      "evidence": "'separately feed the original image into Qwen2.5-VL and the VAE encoder to obtain semantic and reconstructive representations, respectively'; multi-task training combining T2I, TI2I, I2I reconstruction.",
+      "source_url": "https://arxiv.org/abs/2508.02324",
+      "source_type": "paper",
+      "date": "2025-08-04",
+      "confidence": "medium",
+      "caveats": "Self-reported; specific quantitative GEdit-Bench/ImgEdit numbers for the Edit variant were not retrieved in this pass — treat as a gap for the web/docs angle to fill with numbers."
+    },
+    {
+      "id": "AC-15",
+      "question": "Q1/Q3",
+      "claim": "Wan2.1-14B reports a VBench total score of 83.7-86.22% (source-dependent) vs HunyuanVideo-13B's 82.7-83.24%, i.e. Wan2.1/2.2 leads HunyuanVideo on VBench by roughly 1-3 points at comparable/smaller active parameter count, per the Wan authors' own benchmark section and third-party benchmark aggregation citing it.",
+      "evidence": "Wan1.4 total VBench ~83.7-86.22% vs HunyuanVideo-13B ~82.7-83.24% (range reflects different VBench sub-versions/prompt-optimization settings cited across sources).",
+      "source_url": "https://arxiv.org/abs/2503.20314",
+      "source_type": "paper",
+      "date": "2025-03",
+      "confidence": "medium",
+      "caveats": "Self-reported by Wan authors for the Wan-side number; exact figure varies by citing source/VBench version/prompt-optimization toggle — treat the precise decimal as soft, the ~1-3pt Wan-over-Hunyuan ordering as the more robust takeaway. An independent GSB (good-same-bad) comparison in the HunyuanVideo 1.5 tech report (arXiv 2511.18870) found HunyuanVideo 1.5 720p preferred over Wan2.2 in 34.9% of cases vs Wan2.2 preferred in fewer cases — i.e. on newer subjective human-preference eval, HunyuanVideo 1.5 claims to have caught up or surpassed Wan2.2, contradicting the VBench-only ordering. Contradictory literature — not smoothed over."
+    },
+    {
+      "id": "AC-16",
+      "question": "Q2/Q3",
+      "claim": "SVDQuant (peer-reviewed, ICLR 2025) is a 4-bit post-training quantization method for DiT/UNet diffusion models that absorbs outliers into a 16-bit low-rank branch so only the residual is quantized to INT4/FP4. On FLUX.1-dev (50 steps, MJHQ dataset): FID 19.9 (INT4 W4A4) vs 20.3 (BF16) — i.e. FID slightly IMPROVES, not degrades; ImageReward 0.932 (INT4) vs 0.953 (BF16), a small drop. On FLUX.1-schnell (4 steps): FID 18.4 (INT4) vs 19.2 (BF16), also improves.",
+      "evidence": "FLUX.1-dev 50-step MJHQ: FID BF16=20.3, INT W4A4=19.9, FP W4A4=21.0; ImageReward BF16=0.953, INT W4A4=0.932. FLUX.1-schnell 4-step: FID BF16=19.2, INT W4A4=18.4.",
+      "source_url": "https://arxiv.org/abs/2411.05007",
+      "source_type": "paper",
+      "date": "2024-11",
+      "confidence": "high",
+      "caveats": "Peer-reviewed venue (higher credibility than typical preprint); self-reported by authors (MIT/NVIDIA/Nunchaku team) but FID/ImageReward numbers are standard automated metrics, independently reproducible. FID being noise-sensitive at this scale means the 'improvement' should be read as 'statistically within noise of BF16' rather than a true quality gain."
+    },
+    {
+      "id": "AC-17",
+      "question": "Q2/Q3",
+      "claim": "SVDQuant's Nunchaku inference engine reduces FLUX.1 (12B) model size from 22.2GiB to 6.1GiB (3.6x reduction), cuts memory usage 3.5x vs BF16, and delivers 3.0x speedup over NF4 W4A16 weight-only quantization on both desktop and laptop RTX 4090s; on laptop GPUs it further gives a 10.1x speedup by eliminating the need for CPU offload entirely (since the whole quantized model now fits in VRAM).",
+      "evidence": "'22.2 GiB to 6.1 GiB, resulting in an overall 3.6x reduction'; '3.0x speedup on both desktop- and laptop-level NVIDIA RTX 4090 GPUs'; '10.1x speedup by avoiding offloading.'",
+      "source_url": "https://arxiv.org/abs/2411.05007",
+      "source_type": "paper",
+      "date": "2024-11",
+      "confidence": "high",
+      "caveats": "Peer-reviewed. Numbers are for FLUX.1 (image DiT), not yet Wan2.2 video-MoE-DiT — see AC-18 for the video-specific follow-up. Directly answers 'where is the knee' for item 4: at INT4/W4A4 with SVDQuant's outlier-absorption trick, there is essentially NO measurable knee yet on FLUX-class models — quality is statistically at parity with BF16."
+    },
+    {
+      "id": "AC-18",
+      "question": "Q1/Q3",
+      "claim": "A follow-up preprint applies timestep-aware SVDQuant+GPTQ specifically to Wan2.2-I2V (the MoE video model) with W4A4 (INT4) quantization, using expert-aware calibration to handle the two-expert MoE architecture. Result: 59.3% peak GPU memory reduction vs BF16, with only a 0.9% drop in average VBench score and a 2.3% drop in the 'Imaging Quality' sub-metric.",
+      "evidence": "'reduces peak GPU memory by 59.3% relative to the BF16 baseline'; 'VBench Score: 0.9% drop in average score; Imaging Quality: 2.3% drop.'",
+      "source_url": "https://arxiv.org/abs/2605.27003",
+      "source_type": "paper",
+      "date": "2026-05",
+      "confidence": "medium",
+      "caveats": "Single preprint, not yet independently replicated or peer-reviewed — treat as promising but unconfirmed evidence that INT4 is viable even for the Wan2.2 MoE video architecture specifically, extending the FLUX-only finding in AC-16/17 to video DiTs. This is the most directly relevant 'quant-vs-quality for the actual candidate model' data point found."
+    },
+    {
+      "id": "AC-19",
+      "question": "Q2/Q3",
+      "claim": "An independent PTQ study on Ideogram 4.0 (a consumer-GPU-focused DiT) comparing INT8 W8A8 vs FP8 vs GGUF Q4_K found: INT8 W8A8 is statistically indistinguishable from FP8 on CLIP/PickScore (confidence intervals include zero) and within ~0.004 HPSv2 points; but on fidelity-to-FP8-reference (LPIPS, lower=closer to reference), INT8 W8A8 scores 0.243 vs GGUF Q4_K's 0.277 (and another 4-bit baseline at 0.306) — i.e. going from 8-bit to 4-bit clearly increases divergence from the FP8 reference even though 'standalone' aggregate quality scores look similar across all four variants on simple prompts.",
+      "evidence": "'INT8 W8A8: statistically indistinguishable from FP8 (CIs include zero)'; LPIPS-to-FP8-reference: INT8 W8A8=0.243, GGUF Q4_K=0.277, another 4-bit=0.306; 'separation occurring in fidelity and text rendering metrics rather than aggregate image-quality scores.'",
+      "source_url": "https://arxiv.org/abs/2606.12280",
+      "source_type": "paper",
+      "date": "2026-06",
+      "confidence": "medium",
+      "caveats": "Single preprint on one model (Ideogram 4.0, not a candidate model in this study), abstract-only access — but directly answers 'where is the knee': quality holds essentially flat from BF16/FP8 down to INT8, with the real divergence (fidelity, text rendering) opening up between 8-bit and 4-bit. This corroborates AC-16/18's pattern (8-bit near-lossless, INT4 measurably but modestly degraded, mainly on fine detail/text) across three independent DiT quantization studies."
+    },
+    {
+      "id": "AC-20",
+      "question": "Q2/Q3",
+      "claim": "Foundational diffusion PTQ literature (pre-DiT-era, UNet-based Stable Diffusion) establishes the general quantization-knee pattern later confirmed for DiTs: 8-bit weight quantization has near-zero perceptual loss vs FP32/FP16 (PTQD: +0.1 FID on LSUN-Churches at 8-bit); naive 4-bit LINEAR quantization 'drops drastically' in quality, but structure-aware 4-bit methods (Q-Diffusion) preserve most perceptual quality with at most +2.34 FID increase and imperceptible distortion.",
+      "evidence": "PTQD: 8-bit -> +0.1 FID on LSUN-Churches; W4A8 setting improves FID/sFID by 0.78/3.61 vs Q-Diffusion baseline on LSUN-Bedrooms. Q-Diffusion: naive 4-bit linear quant 'drops drastically', Q-Diffusion method 'preserves most of the perceptual quality with at most 2.34 increase in FID.'",
+      "source_url": "https://arxiv.org/abs/2305.10657",
+      "source_type": "paper",
+      "date": "2023-05",
+      "confidence": "medium",
+      "caveats": "These are older UNet-diffusion (not DiT) studies (PTQD, Q-Diffusion) — included as corroborating baseline evidence for the general 8-bit-near-lossless / naive-4-bit-degrades pattern, not as DiT-specific numbers. GGUF K-quant-specific ablations for modern video/image DiTs (Wan2.2, Qwen-Image) were not found as peer-reviewed or arXiv papers in this pass — this remains predominantly community-benchmark territory (GAP, hand off to community/web angle)."
+    },
+    {
+      "id": "AC-21",
+      "question": "Q4-adjacent(restoration, folded into Q2/Q3 scope note)",
+      "claim": "SUPIR (CVPR 2024) uses SDXL as a large-scale generative prior for image restoration, trained on a 20M high-resolution image dataset with text annotations, enabling text-prompt-GUIDED restoration via a modified EDM sampler ('restoration-guided sampling'). It is grouped in the literature alongside StableSR, PASD, DiffBIR, SeeSR as diffusion-prior real-world super-resolution methods that trade heavy SDXL-scale compute for substantially higher perceptual/semantic restoration quality than GAN-based restorers (Real-ESRGAN).",
+      "evidence": "'leverages the large-scale SDXL as a generative prior... 20 million high-resolution, high-quality images for model training, each enriched with descriptive text annotations... restoration-guided sampling method.'",
+      "source_url": "https://arxiv.org/abs/2401.13627",
+      "source_type": "paper",
+      "date": "2024-01",
+      "confidence": "medium",
+      "caveats": "Self-reported by authors. Exact compute cost (inference time, VRAM) not stated in the abstract-accessible portion of this pass — GAP, needs community/docs-angle real-world numbers. Note: this item falls slightly outside the strict Q1-Q3 assignment (upscaling is Q4, assigned to docs/community) but is included briefly since the task's item 5 explicitly requested it."
+    },
+    {
+      "id": "AC-22",
+      "question": "Q4-adjacent",
+      "claim": "SeedVR2 reformulates diffusion-based video restoration as ONE-STEP generation via adversarial post-training (GAN-style distillation of a diffusion restoration model), explicitly to solve the 'prohibitive computational cost' of prior multi-step diffusion video restorers. It uses an adaptive window-attention mechanism sized to the output resolution and trains what the authors call the largest-ever restoration GAN (~16B combined generator+discriminator params) to hit high-quality restoration in a single sampling step.",
+      "evidence": "'addresses a key limitation of recent diffusion-based video restoration approaches, which demonstrate significant visual quality improvement but yield prohibitive computational costs during inference'; '~16B for the generator and discriminator in total... high-quality restoration in a single sampling step.'",
+      "source_url": "https://arxiv.org/abs/2506.05301",
+      "source_type": "paper",
+      "date": "2025-06",
+      "confidence": "medium",
+      "caveats": "Self-reported preprint. Exact speedup multiplier vs multi-step baselines and exact FID/quality numbers were not retrieved in this pass (only the qualitative 'one-step vs prohibitive multi-step' framing) — GAP for community/docs angle to quantify with measured VRAM/fps."
+    }
+  ],
+  "gaps": [
+    "No dedicated Wan2.2 arXiv/peer-reviewed technical report exists (as of this search pass) — all Wan2.2-specific architectural facts (MoE split, TI2V-5B unification, VAE compression) trace back to the vendor GitHub README, not arXiv. Only Wan2.1 (2503.20314) is a proper arXiv paper, and it predates Wan2.2/MoE/TI2V-5B entirely.",
+    "Whether Wan2.2's two 14B MoE experts must both be VRAM-resident simultaneously during a full generation run, or can be swapped/loaded sequentially by phase, is NOT stated in the primary source. This is the single most VRAM-decision-relevant fact in the whole plan and could not be confirmed from academic sources — must be resolved via docs/community angle (actual ComfyUI/Diffusers/DiffSynth loading behavior).",
+    "No GGUF K-quant-specific (Q8_0/Q6_K/Q5_K_M/Q4_K_M) academic ablation study for modern video/image DiTs (Wan2.2, Qwen-Image, HunyuanVideo) was found — this remains almost entirely community-benchmark territory, not peer-reviewed or arXiv literature. General DiT quantization papers found (SVDQuant, Ideogram-4.0 study) use INT4/INT8/FP8, not the llama.cpp-style K-quant scheme specifically.",
+    "Qwen-Image's tech report explicitly names English and Chinese as the two languages of focus for text rendering; no mention of Vietnamese or other Latin-diacritic scripts was found in the reachable portions of the primary paper — Vietnamese text-rendering quality must be verified empirically, not assumed from the 'multilingual' branding.",
+    "No VBench (or equivalent) numeric score for Emu3's or Show-o2's native video generation output could be retrieved — both papers make qualitative claims of competitiveness (vs SDXL/DALL-E3 for image, vs CogVideoX/Step-Video-T2V/VILA-U for video-adjacent comparisons) but hard numbers for the video branch specifically were inaccessible in this pass (paywalled tables / non-abstract sections).",
+    "GapEval paper (2602.02140) on unified-model surface-vs-deep unification did not yield the specific list of models tested or numeric per-model gap scores from the abstract alone — full paper access would be needed to name-check which of BAGEL/Janus-Pro/Show-o/OmniGen2 show the largest understanding-generation inconsistency.",
+    "Exact quantitative compute-cost (inference seconds, VRAM) for SUPIR and exact speedup multiplier for SeedVR2's one-step vs multi-step baseline were not retrievable from abstract-level access — both papers are behind fuller PDF detail than this pass reached; recommend a targeted PDF fetch if these numbers become decision-critical.",
+    "GenEval score comparability caveat: GenEval numbers cited across papers (Qwen-Image 0.91, BAGEL 0.88, OmniGen2 0.95, Janus-Pro 0.80) are drawn from each paper's own self-reported table and may use different prompt sets/eval harness versions (some post-RL, some not) — treat cross-paper GenEval ranking as directionally informative, not a strictly controlled bake-off. A GenEval-2 paper exists (2512.16853) addressing 'benchmark drift' which corroborates that GenEval scores are becoming less comparable/saturated over time — worth flagging in the report as a general caution about all these numbers."
+  ]
+}
