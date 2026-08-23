@@ -93,7 +93,7 @@
         "instruction": 0.5,
         "preserve": 1,
         "quality": 1,
-        "note": "qua trong giong cam/quyt hon la xoai (hinh tron thay vi bau duc); noi dung con lai (xuong, non la, canh cho noi) dung"
+        "note": "quả trông giống cam/quýt hơn là xoài (hình tròn thay vì bầu dục); nội dung còn lại (xuồng, nón lá, cảnh chợ nổi) đúng"
       }
     },
     {
@@ -166,7 +166,7 @@
         "instruction": 1,
         "preserve": 0,
         "quality": 1,
-        "note": "the them 1 ghe: 3->4 ghe thay vi giu nguyen 3"
+        "note": "tự thêm 1 ghế: 3→4 ghế thay vì giữ nguyên 3"
       }
     },
     {
@@ -318,7 +318,7 @@
         "instruction": 1,
         "preserve": 0.5,
         "quality": 1,
-        "note": "dung chi dan dem+neon+uot, nhung 3->4 ghe"
+        "note": "đúng chỉ dẫn đêm+neon+ướt, nhưng 3→4 ghế"
       }
     },
     {
@@ -470,7 +470,7 @@
         "instruction": 1,
         "preserve": 0.5,
         "quality": 1,
-        "note": "quay dau dung, danh tinh kho xac nhan chac chan tu profile"
+        "note": "quay đầu đúng, danh tính khó xác nhận chắc chắn từ profile"
       }
     },
     {
@@ -508,7 +508,7 @@
         "instruction": 0,
         "preserve": 1,
         "quality": 1,
-        "note": "muc tieu 5 ghe, ra 4 ghe — KHONG dat, cung la loi dem lap lai"
+        "note": "mục tiêu 5 ghế, ra 4 ghế — KHÔNG đạt, cũng là lỗi đếm lặp lại"
       }
     },
     {
@@ -527,7 +527,7 @@
         "instruction": 1,
         "preserve": 0.5,
         "quality": 1,
-        "note": "goc may tu-tren-xuong THANH CONG (khac voi test rieng le truoc do that bai) nhung danh tinh chai kho xac nhan tu goc nay"
+        "note": "góc máy từ-trên-xuống THÀNH CÔNG (khác với test riêng lẻ trước đó thất bại) nhưng danh tính chai khó xác nhận từ góc này"
       }
     },
     {
@@ -546,7 +546,7 @@
         "instruction": 0.5,
         "preserve": 1,
         "quality": 1,
-        "note": "mo rong khung hinh mot phan, chua ro da thay het chan"
+        "note": "mở rộng khung hình một phần, chưa rõ đã thấy hết chân"
       }
     },
     {
@@ -565,7 +565,7 @@
         "instruction": 0,
         "preserve": 1,
         "quality": 1,
-        "note": "muc tieu 2 ghe, ra 4 ghe - lap lai loi dem giong str_03/loc_03/glo_02 (mo hinh co xu huong ve lai so ghe mac dinh thay vi lam dung yeu cau dem)"
+        "note": "mục tiêu 2 ghế, ra 4 ghế - lặp lại lỗi đếm giống str_03/loc_03/glo_02 (mô hình có xu hướng vẽ lại số ghế mặc định thay vì làm đúng yêu cầu đếm)"
       }
     },
     {
@@ -584,7 +584,7 @@
         "instruction": 0,
         "preserve": 1,
         "quality": 1,
-        "note": "goc may KHONG doi so voi anh nen, van la goc ngang binh thuong, khong phai goc thap huong len nhu yeu cau"
+        "note": "góc máy KHÔNG đổi so với ảnh nền, vẫn là góc ngang bình thường, không phải góc thấp hướng lên như yêu cầu"
       }
     },
     {
@@ -603,7 +603,7 @@
         "instruction": 0,
         "preserve": 1,
         "quality": 1,
-        "note": "khong zoom/crop, khung hinh giu nguyen toan canh nhu anh goc, chua cat rieng 2 ghe+du nhu yeu cau"
+        "note": "không zoom/crop, khung hình giữ nguyên toàn cảnh như ảnh gốc, chưa cắt riêng 2 ghế+dù như yêu cầu"
       }
     },
     {
@@ -622,7 +622,7 @@
         "instruction": 0,
         "preserve": 1,
         "quality": 1,
-        "note": "goc may van thang (straight-on), KHONG doi sang goc 3/4 nghieng nhu yeu cau"
+        "note": "góc máy vẫn thẳng (straight-on), KHÔNG đổi sang góc 3/4 nghiêng như yêu cầu"
       }
     },
     {
@@ -774,7 +774,7 @@
         "instruction": 1,
         "preserve": 0,
         "quality": 1,
-        "note": "mau/van long meo hoan toan khac ban goc (xam trui -> nau vang co soc), khong giu duoc danh tinh meo"
+        "note": "màu/vằn lông mèo hoàn toàn khác bản gốc (xám trơn → nâu vàng có sọc), không giữ được danh tính mèo"
       }
     },
     {
@@ -814,7 +814,7 @@
         "instruction": 1,
         "preserve": 0.5,
         "quality": 1,
-        "note": "chai dung 100% nhung 3->4 ghe (lai loi dem)"
+        "note": "chai đúng 100% nhưng 3→4 ghế (lại lỗi đếm)"
       }
     },
     {
@@ -894,7 +894,7 @@
         "instruction": 0.5,
         "preserve": 0,
         "quality": 1,
-        "note": "thuyen thay the vi tri 1 trong 2 ghe thay vi dat them canh ca hai ghe, chi con 1 ghe"
+        "note": "thuyền thay thế vị trí 1 trong 2 ghế thay vì đặt thêm cạnh cả hai ghế, chỉ còn 1 ghế"
       }
     },
     {

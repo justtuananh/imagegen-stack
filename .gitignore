@@ -13,3 +13,6 @@ venv/
 app_sessions/
 ket_qua_tmp/
 *.log
+
+# Cache local của tool serena MCP, không phải mã nguồn dự án
+.serena/

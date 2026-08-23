@@ -152,3 +152,58 @@ BAO_CAO_MODEL_ANH_VIDEO.md        khảo sát model <30B sinh ảnh + video
 
 ComfyUI · Python 3.12 · `gradio` `aiohttp` · GPU ≥ 32GB VRAM ·
 model Qwen-Image-2512 + Qwen-Image-Edit-2511 (xem `MODELS.md`)
+
+---
+
+## Triển khai trên máy GPU thuê mới — step by step
+
+Áp dụng khi thuê lại GPU (vd vast.ai) từ đầu, máy trống hoàn toàn.
+
+### 1. Thuê máy
+- Image đã dùng và xác nhận chạy tốt: **`vastai/comfy:v0.30.0-cuda-13.2-py312`**
+  (ComfyUI + Jupyter + Caddy proxy cài sẵn, không cần tự cài ComfyUI).
+- GPU **≥ 32GB VRAM** — đã kiểm chứng trên **RTX 5090 32GB** (phương án fp8, xem `MODELS.md`
+  phương án A). Card 24GB thì bắt buộc đổi sang phương án B (GGUF Q6_K trong `MODELS.md`),
+  khi đó phải cài thêm node pack `city96/ComfyUI-GGUF`.
+- Ổ đĩa trống **≥ 150GB** (model fp8 riêng ảnh ~50.6GB, cộng buffer).
+- ComfyUI trên image này tự khởi động sẵn với `COMFYUI_ARGS=--disable-auto-launch
+  --disable-xformers --port 18188 --enable-cors-header` — không cần tự set.
+
+### 2. Kết nối
+- Lấy IP/port thật (đổi mỗi lần tạo máy mới): `vastai show instances --raw`.
+- SSH vào máy bằng `ssh_host`/`ssh_port` trong kết quả trên.
+- Gọi ComfyUI **qua cổng nội bộ sau khi đã SSH vào**: `http://127.0.0.1:18188` —
+  không cần token, không đi qua Caddy public.
+- **Không gọi thẳng cổng public** (map từ 8188) từ máy ngoài — nó nằm sau Caddy, đòi
+  Basic/Bearer `OPEN_BUTTON_TOKEN` (đọc bằng `env | grep OPEN_BUTTON_TOKEN` trên máy đó),
+  và việc nhét token vào lệnh curl chạy ở máy điều khiển thường bị chặn bởi bộ lọc an toàn.
+
+### 3. Tải model
+- Theo đúng bảng file + đích trong `MODELS.md` (phương án A cho ≥32GB): 4 file vào
+  `models/diffusion_models/`, `models/text_encoders/`, `models/vae/`.
+- **Không cần cài thêm node pack nào** cho workflow hiện tại — `W_qwen_6tasks.json` chỉ
+  dùng node lõi ComfyUI (`UNETLoader`, `CLIPLoader`, `VAELoader`, `KSampler`,
+  `FluxKontextImageScale`, `FluxKontextMultiReferenceLatentMethod`, `CFGNorm`,
+  `ModelSamplingAuraFlow`, `TextEncodeQwenImageEditPlus`, ...). Node pack GGUF chỉ cần nếu
+  đi phương án B.
+- Kiểm tra môi trường đúng theo `MODELS.md`: Python 3.11/3.12 (không 3.13/3.14), PyTorch
+  cu128+ (Blackwell sm_120), gỡ xformers, không cài SageAttention.
+
+### 4. Copy code
+- Copy nguyên thư mục `imagegen-stack/` từ nguồn (`103.130.219.238:/root/Image`) sang máy
+  thuê — máy thuê chỉ là bản sao tạm, không sửa code trực tiếp ở đó.
+
+### 5. Chạy & "load" workflow
+- Workflow **không nạp tay vào ComfyUI GUI** — `workflows/build.py` sinh JSON từ
+  `W_qwen_6tasks.json` theo `--task` (cắt nhánh không dùng) rồi gửi thẳng qua API
+  `POST /prompt`. Chỉ mở GUI ComfyUI khi cần soi bằng mắt lúc debug.
+- Chạy giao diện chat (cách dùng chính): `python3 imagegen-stack/app/app.py --share`
+  (hoặc `--auth user:pass`) — app tự gọi `127.0.0.1:18188`, không cần cấu hình gì thêm.
+- Dựng + gửi workflow tay để test API: xem lệnh ở mục "Bắt đầu nhanh".
+
+### 6. Kiểm tra trước khi tin kết quả
+```bash
+curl -s http://127.0.0.1:18188/system_stats          # ComfyUI đã lên, trả JSON có comfyui_version
+python3 imagegen-stack/workflows/_validate.py         # đối chiếu workflow với schema (không thay chạy thật)
+```
+Muốn đo lại chất lượng thật: chạy bộ eval 50 case (mục "Chạy lại / mở rộng bộ eval" ở trên).
