@@ -102,6 +102,36 @@ python3 run_eval.py --comfy http://127.0.0.1:18188 --out ket_qua/ \
 
 ## Giao diện
 
+Có **hai** giao diện, dùng chung lớp lõi `app/core.py` (ComfyUI + định tuyến tác vụ):
+
+### 1. Auralis — giao diện web (khuyến nghị)
+
+Dựng theo bản thiết kế Claude Design "Auralis — Chatbot sinh ảnh". Frontend tĩnh
+(`web/static/`) + backend FastAPI mỏng (`web/server.py`).
+
+```bash
+cd imagegen-stack/web
+COMFY_INPUT=~/ComfyUI/input SESSION_DIR=~/app_sessions \
+    python3 -m uvicorn server:app --port 7860
+```
+
+- **Nền sáng / tối**, sidebar thu gọn được, thư viện ảnh + lightbox
+- **Tiến độ thật theo từng bước** lấy qua websocket ComfyUI (không phải thanh giả)
+- **Nhiều ảnh một lượt** (1/2/4) — mỗi ảnh là một lần gửi `/prompt` riêng nên hiện dần
+- **Hội thoại & ảnh lưu ở server** (`web/store.py`), không phải localStorage
+- Phong cách sinh ảnh khai ở `web/styles_vi.py`, chữ nghĩa ở `web/content_vi.py`
+
+API (mỗi chức năng trên giao diện có một endpoint):
+
+| Nhóm | Endpoint |
+|---|---|
+| Trò chuyện | `GET POST /api/chats` · `PATCH DELETE /api/chats/{id}` · `GET /api/chats/{id}/messages` |
+| Ảnh | `GET /api/gallery` · `GET /api/image/{id}[?download=1]` · `DELETE /api/image/{id}` · `POST /api/upload` |
+| Sinh ảnh | `POST /api/generate` · `GET /api/progress/{job}` (SSE) · `POST /api/cancel/{job}` |
+| Khác | `GET /api/options` · `GET /api/health` |
+
+### 2. Gradio — giao diện cũ
+
 Chat kiểu ChatGPT: gõ mô tả để tạo ảnh, gửi ảnh 📎 hoặc nói tiếp để sửa, gửi 2 ảnh để ghép.
 
 - **Nhớ ngữ cảnh** — "tạo con mèo" → "thêm cái mũ" → "đổi nền thành bãi biển" nối tiếp
@@ -109,6 +139,10 @@ Chat kiểu ChatGPT: gõ mô tả để tạo ảnh, gửi ảnh 📎 hoặc nó
 - **Chọn nhánh tự động** theo câu lệnh, hoặc bấm nút chế độ để ép
 - **Tiến độ thật theo từng bước** lấy qua websocket của ComfyUI
 - **Tab thư viện** — bấm ảnh bất kỳ để quay lại sửa tiếp từ ảnh đó
+
+> **Lưu ý VRAM:** Qwen-Image 20B fp8 cần ~30GB VRAM trống. Nếu máy đang chạy service
+> LLM khác (vLLM/SGLang thường chiếm sẵn ~90% VRAM), ComfyUI sẽ chết giữa chừng khi
+> lấy mẫu mà **không in traceback**. Kiểm tra trước bằng `nvidia-smi`.
 
 ---
 
@@ -150,8 +184,30 @@ BAO_CAO_MODEL_ANH_VIDEO.md        khảo sát model <30B sinh ảnh + video
 
 ## Yêu cầu
 
-ComfyUI · Python 3.12 · `gradio` `aiohttp` · GPU ≥ 32GB VRAM ·
+ComfyUI · Python 3.11/3.12 · GPU ≥ 32GB VRAM ·
 model Qwen-Image-2512 + Qwen-Image-Edit-2511 (xem `MODELS.md`)
+
+Phụ thuộc Python của repo nằm ở `requirements.txt` (4 gói; phần còn lại là thư viện chuẩn):
+
+```bash
+pip install -r requirements.txt
+```
+
+App chạy venv riêng, tách khỏi venv của ComfyUI — nó chỉ gọi HTTP/websocket, không cần torch.
+
+### Đường dẫn cấu hình bằng biến môi trường
+
+`app.py` mặc định theo layout máy vast.ai (`/workspace/...`). Chạy ở máy khác thì đặt:
+
+| Biến | Mặc định |
+|---|---|
+| `COMFY_URL` | `http://127.0.0.1:18188` |
+| `COMFY_INPUT` | `/workspace/ComfyUI/input` |
+| `SESSION_DIR` | `/workspace/app_sessions` |
+
+```bash
+COMFY_INPUT=~/ComfyUI/input SESSION_DIR=~/app_sessions python3 imagegen-stack/app/app.py
+```
 
 ---
 

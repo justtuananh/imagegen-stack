@@ -1,0 +1,16 @@
+# Phụ thuộc của app/ (Gradio), web/ (Auralis) và vi/.
+# KHÔNG gồm ComfyUI — ComfyUI có venv riêng, xem README.
+# Mọi thứ còn lại trong repo là thư viện chuẩn Python.
+
+# giao diện Gradio (app/app.py) — API Gradio 6: gr.Sidebar, MultimodalTextbox(stop_btn=), allowed_paths=
+gradio>=6,<7
+
+# giao diện web Auralis (web/server.py)
+fastapi
+uvicorn[standard]
+python-multipart        # nhận ảnh tải lên qua /api/upload
+
+# dùng chung
+aiohttp                 # app/core.py nghe websocket tiến độ của ComfyUI
+Pillow                  # vi/render_text.py vẽ chữ tiếng Việt
+fonttools               # tuỳ chọn — kiểm tra font có đủ glyph dấu tiếng Việt không

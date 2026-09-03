@@ -1,0 +1,35 @@
+/* tokens.css — hệ màu + chuyển động lấy NGUYÊN từ thiết kế Auralis
+   (Claude Design: "Auralis — Chatbot sinh ảnh"). Đừng chỉnh tay từng mã màu ở đây;
+   sửa trên bản thiết kế rồi đồng bộ lại để hai bên không lệch. */
+/* Nền phải đi theo theme, không thì ở nền tối sẽ lộ một vệt sáng ở mép phải
+   (chỗ máng thanh cuộn) — data-theme được gắn lên <html> nên var() ở đây có giá trị. */
+html, body { margin: 0; padding: 0; background: var(--bg, #FBFAF7); }
+html[data-theme="dark"] { color-scheme: dark; }
+html[data-theme="light"] { color-scheme: light; }
+* { box-sizing: border-box; }
+textarea, input, button { font: inherit; color: inherit; }
+[data-theme] {
+  --bg:#FBFAF7; --panel:#F4F2ED; --card:#FFFFFF; --line:#E7E4DC; --line2:#D8D4C9;
+  --fg:#191816; --fg2:#5F5A4F; --muted:#8E897A;
+  --accent:#E06A3B; --accent-h:#C4552A; --accent-ink:#A34320; --accent-soft:#FBEDE4; --accent-line:#EFD4C4;
+  --tile-a:#EFEDE5; --tile-b:#E5E2D8; --chip:#F1EFE9; --hover:#EBE8E1;
+  --shadow:0 2px 14px rgba(25,24,22,.06); --sheen:rgba(255,255,255,.9); --scrim:rgba(25,24,22,.6);
+}
+[data-theme="dark"] {
+  --bg:#131211; --panel:#191817; --card:#1E1D1B; --line:#2D2B27; --line2:#3B3833;
+  --fg:#F4F2ED; --fg2:#A9A49A; --muted:#7C776C;
+  --accent:#EE7F4C; --accent-h:#FF9165; --accent-ink:#F4A279; --accent-soft:#2A1D15; --accent-line:#4A3225;
+  --tile-a:#232120; --tile-b:#2B2926; --chip:#232120; --hover:#242220;
+  --shadow:0 2px 16px rgba(0,0,0,.35); --sheen:rgba(255,255,255,.10); --scrim:rgba(0,0,0,.68);
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-h); text-decoration: underline; }
+::selection { background: var(--accent-soft); }
+::placeholder { color: var(--muted); }
+@keyframes om-shimmer { 0% { transform: translateX(-115%); } 100% { transform: translateX(115%); } }
+@keyframes om-pulse { 0%, 100% { opacity: .4; } 50% { opacity: .85; } }
+@keyframes om-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes om-spin { to { transform: rotate(360deg); } }
+@keyframes om-float { 0%,100% { transform: translateY(0) rotate(45deg); } 50% { transform: translateY(-4px) rotate(45deg); } }
+div::-webkit-scrollbar { width: 10px; }
+div::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 8px; border: 3px solid transparent; background-clip: content-box; }
